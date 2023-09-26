@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-""" Collection of string utility functions for Python. """
+""" Collection of custom string utility functions for Python. """
 
 
 def camel_case(text):

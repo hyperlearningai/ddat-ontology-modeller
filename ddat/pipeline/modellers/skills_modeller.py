@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """ Skills modeller pipeline module. """
 
 import ddat.utils.string_utils as string_utils

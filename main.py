@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-""" DDaT profession capability framework parsers main pipeline. """
+"""
+DDaT profession capability framework website parser and modeller main program.
+Usage: main.py
+"""
 
 import ddat.utils.yaml_utils as yaml_utils
 import ddat.pipeline.setup as setup
@@ -24,7 +27,7 @@ if run_module_setup:
     setup.setup_environment(config_base_working_dir)
     print(f'Finished running the {setup.MODULE_NAME} module.')
 
-# Run the skills parsers pipeline module.
+# Run the skills parser pipeline module.
 if run_module_parser_skills:
     print(f'Running the {skills_parser.MODULE_NAME} module...')
     skills_parser.run(

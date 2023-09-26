@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-""" Skills parsers pipeline module. """
+""" Skills parser pipeline module. """
 
 import pickle
 

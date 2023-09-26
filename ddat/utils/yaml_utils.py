@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-""" Collection of YAML utility functions for Python. """
+""" Collection of custom YAML utility functions for Python. """
 
 import yaml
 

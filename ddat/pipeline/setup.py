@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """ Environment setup pipeline module. """
 
 import os

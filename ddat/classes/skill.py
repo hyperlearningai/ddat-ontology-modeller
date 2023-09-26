@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-""" DDaT Skill. """
+""" DDaT Skill class. """
 
 import ddat.utils.string_utils as string_utils
 import json
