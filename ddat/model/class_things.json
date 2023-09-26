@@ -1,0 +1,14 @@
+[
+    {
+        "id": "discipline",
+        "parent_class_iri": "http://www.w3.org/2002/07/owl#Thing",
+        "name": "Discipline",
+        "description": "A DDaT discipline or family of related DDaT roles."
+    },
+    {
+        "id": "skill",
+        "parent_class_iri": "http://www.w3.org/2002/07/owl#Thing",
+        "name": "Skill",
+        "description": "A DDaT professional skill."
+    }
+]

@@ -1,0 +1,30 @@
+[
+    {
+        "id": "isA",
+        "name": "Is a"
+    },
+    {
+        "id": "specialistIn",
+        "name": "Specialist in"
+    },
+    {
+        "id": "branchOf",
+        "name": "Branch of"
+    },
+    {
+        "id": "awarenessOf",
+        "name": "Awareness of"
+    },
+    {
+        "id": "workingLevelOf",
+        "name": "Working level of"
+    },
+    {
+        "id": "practitionerOf",
+        "name": "Practitioner of"
+    },
+    {
+        "id": "expertIn",
+        "name": "Expert in"
+    }
+]

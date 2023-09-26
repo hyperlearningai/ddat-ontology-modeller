@@ -1,0 +1,44 @@
+[
+    {
+        "id": "architecture",
+        "thing_id": "discipline",
+        "name": "Architecture",
+        "description": "The DDaT discipline of architecture."
+    },
+    {
+        "id": "data",
+        "thing_id": "discipline",
+        "name": "Data",
+        "description": "The DDaT discipline of data."
+    },
+    {
+        "id": "itOperations",
+        "thing_id": "discipline",
+        "name": "IT Operations",
+        "description": "The DDaT discipline of IT operations."
+    },
+    {
+        "id": "productAndDelivery",
+        "thing_id": "discipline",
+        "name": "Product and Delivery",
+        "description": "The DDaT discipline of product and delivery."
+    },
+    {
+        "id": "qualityAssuranceTesting",
+        "thing_id": "discipline",
+        "name": "Quality Assurance Testing",
+        "description": "The DDaT discipline of quality assurance testing."
+    },
+    {
+        "id": "softwareEngineering",
+        "thing_id": "discipline",
+        "name": "Software Engineering",
+        "description": "The DDaT discipline of software engineering."
+    },
+    {
+        "id": "userCenteredDesign",
+        "thing_id": "discipline",
+        "name": "User Centered Design",
+        "description": "The DDaT discipline of user centered design."
+    }
+]

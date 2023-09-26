@@ -1,0 +1,11 @@
+{
+    "name": "DDaT Ontology",
+    "iri": "http://daas.hyperlearning.ai/architecture/data/ontologies/ddat",
+    "description": "Ontology of contemporary disciplines, roles and skills in the Digital, Data and Technology (DDaT) profession.",
+    "owl": {
+        "version": "2.0"
+    },
+    "contributors": [
+        "Jillur Quddus"
+    ]
+}

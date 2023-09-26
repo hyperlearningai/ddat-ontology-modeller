@@ -1,0 +1,305 @@
+[
+    {
+        "id": "dataArchitecture",
+        "discipline_id": "architecture",
+        "name": "Data Architecture",
+        "description": "A data architect sets the vision for the organisation’s use of data, through data design, to ensure that data is managed properly and meets the organisation’s needs.",
+        "url": "https://ddat-capability-framework.service.gov.uk/data-architect.html"
+    },
+    {
+        "id": "enterpriseArchitecture",
+        "discipline_id": "architecture",
+        "name": "Enterprise Architecture",
+        "description": "Enterprise architects are leaders working across different levels within an organisation to translate the business strategy into business change and technical delivery.",
+        "responsibilities": "1. Identify priorities for change to enable delivery at pace. \n2. Lead and influence the delivery of cross-cutting capabilities that enable change. \n3. Own the enterprise architecture vision, strategy and roadmaps from a business, technology and data perspective, including ‘as is’, ‘to be’ and transitional states. \n4. Consult and support collaboration across the business. \n5. Understand the organisation’s ecosystem and its interdependencies, including reference architectures. \n6. Take a strategic view across all architectural domains, portfolios and programmes. \n7. Guide the organisation to make appropriate business, technology and data decisions by recommending reuse, sustainability and scalability, to achieve value for money and reduce risk. \n8. Establish architectural principles, policies and standards. \n9. Collaborate and consult with stakeholders to assure business, technology and data decisions are aligned with enterprise architecture strategy. \n10. Develop the architecture community. \n11. Carry out horizon scanning across industry, identifying emerging trends and their potential impact and opportunity for the organisation.",
+        "url": "https://ddat-capability-framework.service.gov.uk/enterprise-architect.html"
+    },
+    {
+        "id": "networkArchitecture",
+        "discipline_id": "architecture",
+        "name": "Network Architecture",
+        "description": "A network architect is responsible for network designs and specifications, including cloud networks.",
+        "url": "https://ddat-capability-framework.service.gov.uk/network-architect.html"
+    },
+    {
+        "id": "securityArchitecture",
+        "discipline_id": "architecture",
+        "name": "Security Architecture",
+        "description": "A security architect designs and builds secure solutions.",
+        "url": "https://ddat-capability-framework.service.gov.uk/security-architect.html"
+    },
+    {
+        "id": "technicalArchitecture",
+        "discipline_id": "architecture",
+        "name": "Technical Architecture",
+        "description": "A technical architect provides technical leadership and architectural design.",
+        "url": "https://ddat-capability-framework.service.gov.uk/technical-architect.html"
+    },
+    {
+        "id": "dataAnalysis",
+        "discipline_id": "data",
+        "name": "Data Analysis",
+        "description": "A data analyst collects, organises and studies data to provide business insight.",
+        "responsibilities": "1. Apply tools and techniques for data analysis and data visualisation (including the use of business information tools). \n2. Identify, collect and migrate data to and from a range of systems. \n3. Manage, clean, abstract and aggregate data alongside a range of analytical studies on that data. \n4. Manipulate and link different data sets. \n5. Summarise and present data and conclusions in the most appropriate format for users.",
+        "url": "https://ddat-capability-framework.service.gov.uk/data-analyst.html"
+    },
+    {
+        "id": "dataEngineering",
+        "discipline_id": "data",
+        "name": "Data Engineering",
+        "description": "A data engineer develops and constructs data products and services, and integrates them into systems and business processes.",
+        "url": "https://ddat-capability-framework.service.gov.uk/data-engineer.html"
+    },
+    {
+        "id": "dataEthics",
+        "discipline_id": "data",
+        "name": "Data Ethics",
+        "description": "A data ethicist assesses the societal effect of technology and data, and produces recommendations for other data professionals. This involves thinking about fairness, accountability, the law, moral dilemmas and risks in the creation of technology and data products and policies.",
+        "responsibilities": "1. Provide research and expertise on data ethics. \n2. Enable others to implement data ethics best practice in their work (for instance by providing training, advising data science teams or demonstrating how to apply ethical principles in practice through examples and case studies). \n3. Communicate effectively to explain and raise awareness of data ethics issues, and to listen to, convene, advise and mediate between various parts of the organisation. \n4. Help people to ask questions, express concerns and discuss ethical dilemmas.",
+        "url": "https://ddat-capability-framework.service.gov.uk/data-ethicist.html"
+    },
+    {
+        "id": "dataGovernance",
+        "discipline_id": "data",
+        "name": "Data Governance",
+        "description": "Data governance is the definition and application of standards and policies in relation to how data is gathered, stored, processed and disposed of.",
+        "responsibilities": "1. Catalogue, monitor and identify data assets that are essential to the organisation’s operations or services. \n2. Assign ownership of data, ensuring there is a clear RACI (responsible, accountable, consulted and informed) matrix in the organisation. \n3. Incorporate governance of data into routine processes. \n4. Support or manage risk processes around data. \n5. Advocate for better use and management of data within the organisation. \n6. Encourage better data literacy within the organisation.",
+        "url": "https://ddat-capability-framework.service.gov.uk/data-governance-manager.html"
+    },
+    {
+        "id": "dataScience",
+        "discipline_id": "data",
+        "name": "Data Science",
+        "description": "Data science is a broad and fast-moving field spanning maths, statistics, software engineering and communications. Data scientists will often work as part of a multidisciplinary team, using data and analytics to inform and achieve organisational goals.",
+        "responsibilities": "1. Explore and visualise data. \n2. Make recommendations to address complex problems and to inform strategic and operational decision making. \n3. Use data ethically and appropriately. \n4. Explore existing and new data using a range of statistical tools and techniques, such as machine learning and predictive analytics. \n5. Find patterns in data and transform them into organisational insight.",
+        "url": "https://ddat-capability-framework.service.gov.uk/data-scientist.html"
+    },
+    {
+        "id": "performanceAnalysis",
+        "discipline_id": "data",
+        "name": "Performance Analysis",
+        "description": "A performance analyst conducts analysis. In this role, you will develop performance measurement frameworks - Key Performance Indicators (KPIs), goals, user needs and benefits - and analyse the performance of a service or product against these, adapting your approach and framework appropriately and in line with any changes.",
+        "url": "https://ddat-capability-framework.service.gov.uk/performance-analyst.html"
+    },
+    {
+        "id": "applicationOperationsEngineering",
+        "discipline_id": "itOperations",
+        "name": "Application Operations Engineering",
+        "description": "An application operations engineer supports, manages and maintains a single application or a suite of applications.",
+        "url": "https://ddat-capability-framework.service.gov.uk/application-operations-engineer.html"
+    },
+    {
+        "id": "businessRelationshipManagement",
+        "discipline_id": "itOperations",
+        "name": "Business Relationship Management",
+        "description": "A business relationship manager acts as the liaison between the business and a selected customer group within a department, to understand the operational and developmental needs of the business.",
+        "url": "https://ddat-capability-framework.service.gov.uk/business-relationship-manager.html"
+    },
+    {
+        "id": "changeAndReleaseManagement",
+        "discipline_id": "itOperations",
+        "name": "Change and Release Management",
+        "description": "Change and release managers lead the change advisory board, ensuring adequate risk assessment and scheduling of technical changes and releases. They own the configuration management database and the access, security and configuration of change activities and release procedures.",
+        "url": "https://ddat-capability-framework.service.gov.uk/change-and-release-manager.html"
+    },
+    {
+        "id": "commandAndControlManagement",
+        "discipline_id": "itOperations",
+        "name": "Command and Control Centre Management",
+        "description": "Command and control centre managers proactively monitor live services and performance trends to identify potential problems or areas for improvement that can then be investigated.",
+        "url": "https://ddat-capability-framework.service.gov.uk/command-and-control-centre-manager.html"
+    },
+    {
+        "id": "endUserComputingEngineering",
+        "discipline_id": "itOperations",
+        "name": "End User Computing Engineering",
+        "description": "An end user computing engineer is responsible for managing the product life cycle of all service-raised incidents (incident control) and all service requests (request control), requiring the use of knowledge management. In this role, you will also be responsible for informing customers on progress and advising on workarounds where necessary, as well as the support and maintenance of end user services.",
+        "url": "https://ddat-capability-framework.service.gov.uk/end-user-computing-engineer.html"
+    },
+    {
+        "id": "itServiceManagement",
+        "discipline_id": "itOperations",
+        "name": "IT Service Management",
+        "description": "IT service managers are responsible for managing the service delivery of information and communications technology (ICT) services, and working with teams from IT service operations.",
+        "url": "https://ddat-capability-framework.service.gov.uk/it-service-manager.html"
+    },
+    {
+        "id": "incidentManagement",
+        "discipline_id": "itOperations",
+        "name": "Incident Management",
+        "description": "Incident managers aim to restore normal service operation as quickly as possible and minimise any adverse effects on business operations. This ensures that the best possible levels of service quality and availability are returned and maintained.",
+        "url": "https://ddat-capability-framework.service.gov.uk/incident-manager.html"
+    },
+    {
+        "id": "infrastructureEngineering",
+        "discipline_id": "itOperations",
+        "name": "Infrastructure Engineering",
+        "description": "An infrastructure engineer designs, builds, manages and supports the infrastructure services that underpin all internal user services and services to the public.",
+        "url": "https://ddat-capability-framework.service.gov.uk/infrastructure-engineer.html"
+    },
+    {
+        "id": "infrastructureOperationsEngineering",
+        "discipline_id": "itOperations",
+        "name": "Infrastructure Operations Engineering",
+        "description": "An infrastructure operations engineer supports, manages and maintains the core infrastructure that underpins production services.",
+        "url": "https://ddat-capability-framework.service.gov.uk/infrastructure-operations-engineer.html"
+    },
+    {
+        "id": "problemManagement",
+        "discipline_id": "itOperations",
+        "name": "Problem Management",
+        "description": "Problem managers aim to resolve and control the root causes of incidents caused by errors within the IT infrastructure. In this role, you will be expected to work to prevent the recurrence of these incidents.",
+        "url": "https://ddat-capability-framework.service.gov.uk/problem-manager.html"
+    },
+    {
+        "id": "serviceDeskManagement",
+        "discipline_id": "itOperations",
+        "name": "Service Desk Management",
+        "description": "A service desk manager is responsible for managing the first- and second-line technical support for all departmental IT applications and services across sites, including end-user computing. This includes multi-function devices and specialised IT equipment. In this role, you will also be responsible for ensuring support for existing and emerging information and communications technology (ICT) services, including providing technical advice to project teams.",
+        "url": "https://ddat-capability-framework.service.gov.uk/service-desk-manager.html"
+    },
+    {
+        "id": "serviceTransitionManagement",
+        "discipline_id": "itOperations",
+        "name": "Service Transition Management",
+        "description": "IT service transition managers provide overall planning for service transitions and co-ordinate the required resources. In this role, you will control the product life cycle of all changes, enabling beneficial changes to be made with minimum disruption to IT services.",
+        "url": "https://ddat-capability-framework.service.gov.uk/service-transition-manager.html"
+    },
+    {
+        "id": "businessAnalysis",
+        "discipline_id": "productAndDelivery",
+        "name": "Business Analysis",
+        "responsibilities": "1. Analyse and understand a business problem or opportunity. \n2. Undertake research and analysis to understand how a business or business area works, considering the people, organisation, processes, information, data and technology. \n3. Identify areas for improvement, explore feasible options, analyse the effects of change and define success measures. \n4. Identify and elaborate user and business needs to enable effective design, development and testing of services and business change. \n5. Make decisions related to prioritisation and minimum viable product by using analysis led insights. \n6. Ensure new products and services meet business and user needs, and are aligned with organisational goals. \n7. Understand any business and policy constraints that need to be considered, and assess the implications.",
+        "url": "https://ddat-capability-framework.service.gov.uk/business-analyst.html"
+    },
+    {
+        "id": "deliveryManagement",
+        "discipline_id": "productAndDelivery",
+        "name": "Delivery Management",
+        "description": "A delivery manager is accountable for the delivery of products and services.",
+        "url": "https://ddat-capability-framework.service.gov.uk/delivery-manager.html"
+    },
+    {
+        "id": "productManagement",
+        "discipline_id": "productAndDelivery",
+        "name": "Product Management",
+        "description": "A product manager is responsible for the quality of their products. In this role, you will be expected to use your knowledge of user needs and business goals to frame problems and set priorities for your delivery teams.",
+        "url": "https://ddat-capability-framework.service.gov.uk/product-manager.html"
+    },
+    {
+        "id": "programmeDeliveryManagement",
+        "discipline_id": "productAndDelivery",
+        "name": "Programme Delivery Management",
+        "description": "A programme delivery manager is accountable for the delivery of complex products and services that are being delivered by multiple teams or have high technical or political risk.",
+        "url": "https://ddat-capability-framework.service.gov.uk/programme-delivery-manager.html"
+    },
+    {
+        "id": "serviceOwnership",
+        "discipline_id": "productAndDelivery",
+        "name": "Service Ownership",
+        "description": "A service owner is accountable for the quality of their service. In this role, you will adopt a portfolio view, managing end-to-end services that include multiple products and channels.",
+        "url": "https://ddat-capability-framework.service.gov.uk/service-owner.html"
+    },
+    {
+        "id": "qualityAssuranceTestingAnalysis",
+        "discipline_id": "qualityAssuranceTesting",
+        "name": "Quality Assurance Testing Analysis",
+        "description": "A QAT analyst designs and executes test plans, and carries out exploratory testing as part of a broader risk-based approach.",
+        "url": "https://ddat-capability-framework.service.gov.uk/quality-assurance-testing-qat-analyst.html"
+    },
+    {
+        "id": "testEngineering",
+        "discipline_id": "qualityAssuranceTesting",
+        "name": "Test Engineering",
+        "description": "A test engineer undertakes test planning activity including discovery capture, test definition and the estimation of test effort, as part of a broader risk-based approach.",
+        "url": "https://ddat-capability-framework.service.gov.uk/test-engineer.html"
+    },
+    {
+        "id": "testManagement",
+        "discipline_id": "qualityAssuranceTesting",
+        "name": "Test Management",
+        "description": "A test manager takes ownership of the quality assurance and testing (QAT) strategy as part of a broader risk-based approach.",
+        "url": "https://ddat-capability-framework.service.gov.uk/test-manager.html"
+    },
+    {
+        "id": "devOpsEngineering",
+        "discipline_id": "softwareEngineering",
+        "name": "DevOps Engineering",
+        "description": "Development operations (DevOps) engineers support the development and operation of software through tools, environments and practices. In this role, you will be responsible for underpinning good development processes including managing tools and testing environments, central code control, maintaining development standards and writing software that automates systems.",
+        "url": "https://ddat-capability-framework.service.gov.uk/development-operations-devops-engineer.html"
+    },
+    {
+        "id": "frontendDevelopment",
+        "discipline_id": "softwareEngineering",
+        "name": "Frontend Development",
+        "description": "A frontend developer designs, builds and improves website software that meets user needs.",
+        "responsibilities": "1. Responsible for writing clean, accessible code following a progressive enhancement approach. \n2. Create code that is open by default and easy for others to reuse. \n3. Design software which meets user needs and creates meaningful interactions and relationships with users. \n4. Have an understanding of the three fundamental frontend technologies (HTML, CSS and JavaScript).",
+        "url": "https://ddat-capability-framework.service.gov.uk/frontend-developer.html"
+    },
+    {
+        "id": "softwareDevelopment",
+        "discipline_id": "softwareEngineering",
+        "name": "Software Development",
+        "description": "A software developer designs, runs and improves software that meets user needs.",
+        "responsibilities": "1. Responsible for writing clean, secure code following a test-driven approach. \n2. Create code that is open by default and easy for others to reuse.",
+        "url": "https://ddat-capability-framework.service.gov.uk/software-developer.html"
+    },
+    {
+        "id": "accessibility",
+        "discipline_id": "userCenteredDesign",
+        "name": "Accessibility",
+        "description": "An accessibility specialist provides support, advice and guidance to other roles in the Digital, Data and Technology (DDaT) Profession about how to create accessible digital services. You will use knowledge of accessibility guidelines, provide technical expertise and bring the voice of disabled users to ensure that product teams make digital services that can be used by everyone.",
+        "url": "https://ddat-capability-framework.service.gov.uk/accessibility-specialist.html"
+    },
+    {
+        "id": "contentDesign",
+        "discipline_id": "userCenteredDesign",
+        "name": "Content Design",
+        "description": "Content designers make things easier for people to understand and use. This can involve working on a single piece of content or on the end-to-end journey of a service to help users complete their goal and government deliver a policy intent. In this role your work may involve the creation of, or change to, a transaction, product or single piece of content that stretches across digital and offline channels.",
+        "responsibilities": "1. Make sure appropriate content is shown to a user in the right place and in the best format. \n2. Start from discovery and work closely with user researchers, service designers and interaction designers.",
+        "url": "https://ddat-capability-framework.service.gov.uk/content-designer.html"
+    },
+    {
+        "id": "contentStrategy",
+        "discipline_id": "userCenteredDesign",
+        "name": "Content Strategy",
+        "description": "A content strategist takes an overview of content and how it is produced.",
+        "responsibilities": "1. Design governance, workflows and taxonomies in a user-centred context. \n2. Work with senior stakeholders, user researchers and content, service and interaction designers.",
+        "url": "https://ddat-capability-framework.service.gov.uk/content-strategist.html"
+    },
+    {
+        "id": "graphicDesign",
+        "discipline_id": "userCenteredDesign",
+        "name": "Graphic Design",
+        "description": "A graphic designer creates graphic elements that underpin interaction and service design. You will use layout, spacing, colour, type and iconography to ensure that content is legible and readable and that users see and understand interactions.",
+        "url": "https://ddat-capability-framework.service.gov.uk/graphic-designer.html"
+    },
+    {
+        "id": "interactionDesign",
+        "discipline_id": "userCenteredDesign",
+        "name": "Interaction Design",
+        "description": "An interaction designer works out the best way to let users interact with services, in terms of both overall flow and at the level of individual design elements.",
+        "url": "https://ddat-capability-framework.service.gov.uk/interaction-designer.html"
+    },
+    {
+        "id": "serviceDesign",
+        "discipline_id": "userCenteredDesign",
+        "name": "Service Design",
+        "description": "Service designers design the end-to-end journey of a service. This helps a user complete their goal and government deliver a policy intent. In this role, your work may involve the creation of, or change to, transactions, products and content across both digital and offline channels provided by different parts of government.",
+        "url": "https://ddat-capability-framework.service.gov.uk/service-designer.html"
+    },
+    {
+        "id": "technicalWriting",
+        "discipline_id": "userCenteredDesign",
+        "name": "Technical Writing",
+        "description": "A technical writer takes a user-centred approach to making complicated technical concepts easier to understand for a specialist audience. In this role, you will focus on specialist content and software documentation, and write for technologists such as developers, technical architects, and technology leaders.",
+        "url": "https://ddat-capability-framework.service.gov.uk/technical-writer.html"
+    },
+    {
+        "id": "userResearch",
+        "discipline_id": "userCenteredDesign",
+        "name": "User Research",
+        "description": "User researchers plan, design and carry out research activities with users that help teams get a deep understanding of the people that use government services. This research informs policy, proposition, service, content and interaction design so that services work well for users and achieve policy intent.",
+        "url": "https://ddat-capability-framework.service.gov.uk/user-researcher.html"
+    }
+]

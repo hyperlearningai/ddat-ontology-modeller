@@ -1,0 +1,42 @@
+[
+    {
+        "id": "responsibilities",
+        "name": "Responsibilities",
+        "description": "Responsibilities associated with a role."
+    },
+    {
+        "id": "civilServiceJobGrades",
+        "name": "Civil Service Job Grades",
+        "description": "The civil service job grade(s) at which a role is often performed."
+    },
+    {
+        "id": "entityType",
+        "name": "Entity Type",
+        "description": "DDaT entity type."
+    },
+    {
+        "id": "url",
+        "name": "URL",
+        "description": "URL to an online resource providing further information on an entity."
+    },
+    {
+        "id": "awarenessLevelCapabilities",
+        "name": "Awareness Level Capabilities",
+        "description": "List of the capabilities demonstrated at the awareness level for a skill."
+    },
+    {
+        "id": "workingLevelCapabilities",
+        "name": "Working Level Capabilities",
+        "description": "List of the capabilities demonstrated at the working level for a skill."
+    },
+    {
+        "id": "practitionerLevelCapabilities",
+        "name": "Practitioner Level Capabilities",
+        "description": "List of the capabilities demonstrated at the practitioner level for a skill."
+    },
+    {
+        "id": "expertLevelCapabilities",
+        "name": "Expert Level Capabilities",
+        "description": "List of the capabilities demonstrated at the expert level for a skill."
+    }
+]
