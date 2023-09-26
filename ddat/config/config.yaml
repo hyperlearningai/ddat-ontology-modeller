@@ -1,5 +1,5 @@
 app:
-  base_output_dir: /tmp/ddat-parser
+  base_working_dir: /tmp/ddat-parser
   webdrivers:
     chromedriver:
       driver: /opt/drivers/webdrivers/chromedriver/117.0.5938.92/chromedriver

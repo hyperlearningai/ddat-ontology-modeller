@@ -20,7 +20,7 @@ class Skill:
         self.name = name
         self.description = description
         self.skill_levels = skill_levels
-        self.id = string_utils.camel_case(name)
+        self.iri_id = string_utils.camel_case(name)
 
     def __str__(self):
         """ Override the __str__() method to return the class name followed
