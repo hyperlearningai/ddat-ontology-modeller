@@ -17,6 +17,8 @@ OUTPUT_FILE_PATH = 'modelled/skills.xml'
 
 # OWL RDF/XML substrings.
 SKILL_IRI_ANCHOR_PREFIX = '#skill'
+SKILL_ENTITY_TYPE = 'Skill'
+RDF_DATATYPE_STRING = 'rdf:datatype="http://www.w3.org/2001/XMLSchema#string"'
 
 
 def run(ddat_base_url, ddat_skills_resource, base_iri, base_working_dir):
@@ -91,13 +93,47 @@ def model_skill(skill, ddat_base_url, ddat_skills_resource, base_iri):
 
     """
 
+    # Class attributes.
+    class_iri = f'{base_iri}{SKILL_IRI_ANCHOR_PREFIX}{string_utils.pascal_case(skill.name)}'
+    skill_url = f'{ddat_base_url}/{ddat_skills_resource}#{skill.anchor_id}'
+    awareness_level_capabilities = model_skill_level_capabilities(skill.skill_levels['Awareness'])
+    working_level_capabilities = model_skill_level_capabilities(skill.skill_levels['Working'])
+    practitioner_level_capabilities = model_skill_level_capabilities(skill.skill_levels['Practitioner'])
+    expert_level_capabilities = model_skill_level_capabilities(skill.skill_levels['Expert'])
+
     return f'''
-        <owl:Class rdf:about="{base_iri}{SKILL_IRI_ANCHOR_PREFIX}{string_utils.pascal_case(skill.name)}">
+        <!-- {class_iri} -->
+        
+        <owl:Class rdf:about="{class_iri}">
             <rdfs:label xml:lang="en">{skill.name}</rdfs:label>
-            <skos:definition xml:lang="en" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">{skill.description}</skos:definition>
-            <entityType xml:lang="en" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Skill</entityType>
-            <url xml:lang="en" rdf:resource="{ddat_base_url}/{ddat_skills_resource}#{skill.anchor_id}"/>
+            <skos:definition xml:lang="en" {RDF_DATATYPE_STRING}>{skill.description}</skos:definition>
+            <entityType xml:lang="en" {RDF_DATATYPE_STRING}>{SKILL_ENTITY_TYPE}</entityType>
+            <url xml:lang="en" rdf:resource="{skill_url}"/>
+            <awarenessLevelCapabilities xml:lang="en" {RDF_DATATYPE_STRING}>{awareness_level_capabilities}</awarenessLevelCapabilities>
+            <workingLevelCapabilities xml:lang="en" {RDF_DATATYPE_STRING}>{working_level_capabilities}</workingLevelCapabilities>
+            <practitionerLevelCapabilities xml:lang="en" {RDF_DATATYPE_STRING}>{practitioner_level_capabilities}</practitionerLevelCapabilities>
+            <expertLevelCapabilities xml:lang="en" {RDF_DATATYPE_STRING}>{expert_level_capabilities}</expertLevelCapabilities>
         </owl:Class>'''
+
+
+def model_skill_level_capabilities(skill_level_capabilities):
+    """ Model skill level capabilities.
+
+    Args:
+        skill_level_capabilities (list): List of capabilities at a skill level.
+
+    Returns:
+        String representation of the list of capabilities at a skill level.
+    """
+
+    modelled_skill_level_capabilities = ''
+    counter = 1
+    for skill_level_capability in skill_level_capabilities:
+        modelled_skill_level_capability = \
+            f'{counter}. {skill_level_capability[0].upper()}{skill_level_capability[1:]}. \n'
+        modelled_skill_level_capabilities += modelled_skill_level_capability
+        counter += 1
+    return modelled_skill_level_capabilities
 
 
 def write_modelled_skills_to_file(modelled_skills, base_working_dir):
