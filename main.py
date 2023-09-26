@@ -41,6 +41,5 @@ if run_module_modeller_skills:
         ddat_base_url=config_ddat['base_url'],
         ddat_skills_resource=config_ddat['resources']['skills'],
         base_iri=config_ddat['ontology']['base_iri'],
-        base_working_dir=config_base_working_dir
-    )
+        base_working_dir=config_base_working_dir)
     print(f'Finished running the {skills_modeller.MODULE_NAME} module.')
