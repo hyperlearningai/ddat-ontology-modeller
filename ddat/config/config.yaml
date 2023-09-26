@@ -1,0 +1,11 @@
+app:
+  base_output_dir: /tmp/ddat-parser
+  webdrivers:
+    chromedriver:
+      driver: /opt/drivers/webdrivers/chromedriver/117.0.5938.92/chromedriver
+ddat:
+  base_url: https://ddat-capability-framework.service.gov.uk
+  resources:
+    skills: skills.html
+  ontology:
+    base_iri: http://daas.hyperlearning.ai/architecture/data/ontologies/ddat
