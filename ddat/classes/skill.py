@@ -8,11 +8,11 @@ class Skill:
     
     def __init__(self, anchor_id, name, description, skill_levels):
         """
-            Args:
-                anchor_id (string): Skill web element anchor ID.
-                name (string): Skill name.
-                description (string): Skill description.
-                skill_levels (dict): Dictionary of capabilities at different skill levels.
+        Args:
+            anchor_id (string): Skill web element anchor ID.
+            name (string): Skill name.
+            description (string): Skill description.
+            skill_levels (dict): Dictionary of capabilities at different skill levels.
         """
 
         self.anchor_id = anchor_id
