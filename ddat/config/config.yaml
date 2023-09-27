@@ -7,5 +7,3 @@ ddat:
   base_url: https://ddat-capability-framework.service.gov.uk
   resources:
     skills: skills.html
-  ontology:
-    base_iri: http://daas.hyperlearning.ai/architecture/data/ontologies/ddat
