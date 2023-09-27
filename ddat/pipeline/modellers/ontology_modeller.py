@@ -18,8 +18,9 @@ INPUT_MODEL_CLASS_THINGS_FILE_NAME = 'class_things.json'
 INPUT_MODEL_CLASS_DISCIPLINES_FILE_NAME = 'class_disciplines.json'
 INPUT_MODEL_CLASS_BRANCHES_FILE_NAME = 'class_branches.json'
 
-# Input parsed skills.
+# Input parsed objects.
 INPUT_SKILLS_FILE_PATH = 'parsed/skills.pkl'
+INPUT_ROLES_FILE_PATH = 'parsed/roles.pkl'
 
 # Output file relative path and name.
 OUTPUT_FILE_PATH = 'modelled/ddat.owl'
