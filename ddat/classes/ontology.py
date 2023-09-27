@@ -25,8 +25,8 @@ class Ontology:
         self.class_things = None
         self.class_disciplines = None
         self.class_branches = None
-        self.class_roles = None
         self.class_skills = None
+        self.class_roles = None
 
     def set_annotation_properties(self, annotation_properties):
         self.annotation_properties = annotation_properties
@@ -43,11 +43,11 @@ class Ontology:
     def set_class_branches(self, class_branches):
         self.class_branches = class_branches
 
-    def set_class_roles(self, class_roles):
-        self.class_roles = class_roles
-
     def set_class_skills(self, class_skills):
         self.class_skills = class_skills
+
+    def set_class_roles(self, class_roles):
+        self.class_roles = class_roles
 
     def __str__(self):
         """ Override the __str__() method to return the class name followed

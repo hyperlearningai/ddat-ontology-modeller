@@ -1,6 +1,8 @@
 """ Ontology modeller pipeline module. """
 
+import ddat.utils.string_utils as string_utils
 import json
+import pickle
 
 from ddat.classes.ontology import Ontology
 from types import SimpleNamespace
@@ -16,12 +18,16 @@ INPUT_MODEL_CLASS_THINGS_FILE_NAME = 'class_things.json'
 INPUT_MODEL_CLASS_DISCIPLINES_FILE_NAME = 'class_disciplines.json'
 INPUT_MODEL_CLASS_BRANCHES_FILE_NAME = 'class_branches.json'
 
+# Input parsed skills.
+INPUT_SKILLS_FILE_PATH = 'parsed/skills.pkl'
+
 # Output file relative path and name.
 OUTPUT_FILE_PATH = 'modelled/ddat.owl'
 
 # OWL RDF/XML substrings.
 RDF_DATATYPE_STRING = 'rdf:datatype="http://www.w3.org/2001/XMLSchema#string"'
 OWL_TOP_OBJECT_PROPERTY_IRI = 'rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"'
+OWL_SKILL_CLASS_ID = 'skill'
 
 # Entity types.
 ENTITY_TYPE_DISCIPLINE = 'Discipline'
@@ -30,12 +36,14 @@ ENTITY_TYPE_ROLE = 'Role'
 ENTITY_TYPE_SKILL = 'Skill'
 
 
-def run(model_dir_path, base_working_dir):
+def run(model_dir_path, base_working_dir, ddat_base_url, ddat_skills_resource):
     """ Run this pipeline module.
 
     Args:
         model_dir_path (string): Path to the directory holding the ontology model.
         base_working_dir (string): Path to the base working directory.
+        ddat_base_url (string): Base URL to the DDaT profession capability framework website.
+        ddat_skills_resource (string): Relative URL to the DDaT skills resource.
 
     """
 
@@ -57,8 +65,11 @@ def run(model_dir_path, base_working_dir):
     # Load the pre-defined branch classes from the ontology model.
     ontology = load_class_branches(ontology, model_dir_path)
 
+    # Load the parsed Skill objects from file.
+    ontology = load_class_skills(ontology, base_working_dir)
+
     # Model the Ontology as an OWL RDF/XML ontology.
-    modelled_ontology = model_ontology(ontology)
+    modelled_ontology = model_ontology(ontology, ddat_base_url, ddat_skills_resource)
 
     # Write the modelled ontology OWL RDF/XML string to file.
     write_ontology_to_file(modelled_ontology, base_working_dir)
@@ -176,11 +187,31 @@ def load_class_branches(ontology, model_dir_path):
     return ontology
 
 
-def model_ontology(ontology):
+def load_class_skills(ontology, base_working_dir):
+    """ Load the list of parsed Skill objects from file.
+
+    Args:
+        ontology (Ontology): Ontology object
+        base_working_dir (string): Path to the base working directory.
+
+    Returns:
+        Ontology object.
+
+    """
+
+    with open(f'{base_working_dir}/{INPUT_SKILLS_FILE_PATH}', 'rb') as f:
+        skills = pickle.load(f)
+    ontology.set_class_skills(skills)
+    return ontology
+
+
+def model_ontology(ontology, ddat_base_url, ddat_skills_resource):
     """ Model an Ontology object as an OWL RDF/XML ontology.
 
     Args:
         ontology (Ontology): Ontology object
+        ddat_base_url (string): Base URL to the DDaT profession capability framework website.
+        ddat_skills_resource (string): Relative URL to the DDaT skills resource.
 
     Returns:
         Modelled ontology OWL RDF/XML string
@@ -192,7 +223,8 @@ def model_ontology(ontology):
             f'{model_object_properties(ontology)}'
             f'{model_class_things(ontology)}'
             f'{model_class_disciplines(ontology)}'
-            f'{model_class_branches(ontology)}')
+            f'{model_class_branches(ontology)}'
+            f'{model_class_skills(ontology, ddat_base_url, ddat_skills_resource)}')
 
 
 def model_ontology_metadata(ontology):
@@ -374,6 +406,68 @@ def model_class_branches(ontology):
         <url xml:lang="en" rdf:resource="{class_branch.url}"/>
     </owl:Class>\n\n'''
     return modelled_class_branches
+
+
+def model_class_skills(ontology, ddat_base_url, ddat_skills_resource):
+    """ Model skill classes from an Ontology object as an OWL RDF/XML string.
+
+    Args:
+        ontology (Ontology): Ontology object
+        ddat_base_url (string): Base URL to the DDaT profession capability framework website.
+        ddat_skills_resource (string): Relative URL to the DDaT skills resource.
+
+    Returns:
+        Modelled skill classes OWL RDF/XML string
+
+    """
+
+    # Generate the skill classes OWL RDF/XML string.
+    modelled_class_skills = f'''
+    <!-- CLASSES - SKILLS -->\n\n'''
+    for class_skill in ontology.class_skills:
+
+        # Class attributes.
+        class_iri = f'{ontology.iri}#{OWL_SKILL_CLASS_ID}{string_utils.pascal_case(class_skill.name)}'
+        skill_url = f'{ddat_base_url}/{ddat_skills_resource}#{class_skill.anchor_id}'
+        skill_iri = f'{ontology.iri}#{OWL_SKILL_CLASS_ID}'
+        awareness_level_capabilities = model_skill_level_capabilities(class_skill.skill_levels['Awareness'])
+        working_level_capabilities = model_skill_level_capabilities(class_skill.skill_levels['Working'])
+        practitioner_level_capabilities = model_skill_level_capabilities(class_skill.skill_levels['Practitioner'])
+        expert_level_capabilities = model_skill_level_capabilities(class_skill.skill_levels['Expert'])
+
+        modelled_class_skills += f'''
+    <owl:Class rdf:about="{class_iri}">
+        <rdfs:subClassOf rdf:resource="{skill_iri}"/>
+        <rdfs:label xml:lang="en">{class_skill.name}</rdfs:label>
+        <skos:definition xml:lang="en" {RDF_DATATYPE_STRING}>{class_skill.description}</skos:definition>
+        <entityType xml:lang="en" {RDF_DATATYPE_STRING}>{ENTITY_TYPE_SKILL}</entityType>
+        <url xml:lang="en" rdf:resource="{skill_url}"/>
+        <awarenessLevelCapabilities xml:lang="en" {RDF_DATATYPE_STRING}>{awareness_level_capabilities}</awarenessLevelCapabilities>
+        <workingLevelCapabilities xml:lang="en" {RDF_DATATYPE_STRING}>{working_level_capabilities}</workingLevelCapabilities>
+        <practitionerLevelCapabilities xml:lang="en" {RDF_DATATYPE_STRING}>{practitioner_level_capabilities}</practitionerLevelCapabilities>
+        <expertLevelCapabilities xml:lang="en" {RDF_DATATYPE_STRING}>{expert_level_capabilities}</expertLevelCapabilities>
+    </owl:Class>\n\n'''
+    return modelled_class_skills
+
+
+def model_skill_level_capabilities(skill_level_capabilities):
+    """ Model skill level capabilities.
+
+    Args:
+        skill_level_capabilities (list): List of capabilities at a skill level.
+
+    Returns:
+        String representation of the list of capabilities at a skill level.
+    """
+
+    modelled_skill_level_capabilities = ''
+    counter = 1
+    for skill_level_capability in skill_level_capabilities:
+        modelled_skill_level_capability = \
+            f'{counter}. {skill_level_capability[0].upper()}{skill_level_capability[1:]}. \n'
+        modelled_skill_level_capabilities += modelled_skill_level_capability
+        counter += 1
+    return modelled_skill_level_capabilities
 
 
 def write_ontology_to_file(modelled_ontology, base_working_dir):

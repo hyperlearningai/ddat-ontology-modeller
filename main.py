@@ -7,7 +7,7 @@ Usage: main.py
 import ddat.utils.yaml_utils as yaml_utils
 import ddat.pipeline.setup as setup
 import ddat.pipeline.parsers.skills_parser as skills_parser
-import ddat.pipeline.modellers.skills_modeller as skills_modeller
+import ddat.pipeline.modellers.ontology_modeller as ontology_modeller
 
 
 # Application configuration.
@@ -16,10 +16,13 @@ config_chromedriver = config['app']['webdrivers']['chromedriver']
 config_ddat = config['ddat']
 config_base_working_dir = config['app']['base_working_dir']
 
+# Ontology model.
+model_dir_path = './ddat/model/'
+
 # Toggle pipeline modules to run.
 run_module_setup = True
 run_module_parser_skills = True
-run_module_modeller_skills = True
+run_module_modeller_ontology = True
 
 # Run the environment setup pipeline module.
 if run_module_setup:
@@ -37,12 +40,12 @@ if run_module_parser_skills:
         base_working_dir=config_base_working_dir)
     print(f'Finished running the {skills_parser.MODULE_NAME} module.')
 
-# Run the skills modeller pipeline module.
-if run_module_modeller_skills:
-    print(f'Running the {skills_modeller.MODULE_NAME} module...')
-    skills_modeller.run(
+# Run the ontology modeller pipeline module.
+if run_module_modeller_ontology:
+    print(f'Running the {ontology_modeller.MODULE_NAME} module...')
+    ontology_modeller.run(
+        model_dir_path=model_dir_path,
+        base_working_dir=config_base_working_dir,
         ddat_base_url=config_ddat['base_url'],
-        ddat_skills_resource=config_ddat['resources']['skills'],
-        base_iri=config_ddat['ontology']['base_iri'],
-        base_working_dir=config_base_working_dir)
-    print(f'Finished running the {skills_modeller.MODULE_NAME} module.')
+        ddat_skills_resource=config_ddat['resources']['skills'])
+    print(f'Finished running the {ontology_modeller.MODULE_NAME} module.')
