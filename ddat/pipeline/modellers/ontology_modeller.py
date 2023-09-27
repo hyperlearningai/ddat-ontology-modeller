@@ -21,6 +21,13 @@ OUTPUT_FILE_PATH = 'modelled/ddat.owl'
 
 # OWL RDF/XML substrings.
 RDF_DATATYPE_STRING = 'rdf:datatype="http://www.w3.org/2001/XMLSchema#string"'
+OWL_TOP_OBJECT_PROPERTY_IRI = 'rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"'
+
+# Entity types.
+ENTITY_TYPE_DISCIPLINE = 'Discipline'
+ENTITY_TYPE_BRANCH = 'Branch'
+ENTITY_TYPE_ROLE = 'Role'
+ENTITY_TYPE_SKILL = 'Skill'
 
 
 def run(model_dir_path, base_working_dir):
@@ -180,8 +187,31 @@ def model_ontology(ontology):
 
     """
 
-    return f'''
-<?xml version="1.0"?>
+    return (f'{model_ontology_metadata(ontology)}'
+            f'{model_annotation_properties(ontology)}'
+            f'{model_object_properties(ontology)}'
+            f'{model_class_things(ontology)}'
+            f'{model_class_disciplines(ontology)}'
+            f'{model_class_branches(ontology)}')
+
+
+def model_ontology_metadata(ontology):
+    """ Model metadata from an Ontology object as an OWL RDF/XML string.
+
+    Args:
+        ontology (Ontology): Ontology object
+
+    Returns:
+        Modelled ontology metadata OWL RDF/XML string
+
+    """
+
+    # Generate the contributors string.
+    modelled_contributors = ''
+    for contributor in ontology.contributors:
+        modelled_contributors += f'<terms:contributor>{contributor}</terms:contributor>'
+
+    return f'''<?xml version="1.0"?>
 <rdf:RDF xmlns="{ontology.iri}#"
     xml:base="{ontology.iri}"
     xmlns:ddat="{ontology.iri}"
@@ -192,15 +222,158 @@ def model_ontology(ontology):
     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
     xmlns:skos="http://www.w3.org/2004/02/skos/core#"
     xmlns:dc="http://purl.org/dc/elements/1.1/"
-    xmlns:terms="http://purl.org/dc/terms/">
+    xmlns:terms="http://purl.org/dc/terms/">\n\n
+    <!-- ONTOLOGY METADATA -->\n\n
     <owl:Ontology rdf:about="{ontology.iri}">
         <dc:title xml:lang="en">{ontology.name}</dc:title>
         <rdfs:label xml:lang="en" {RDF_DATATYPE_STRING}>{ontology.name}</rdfs:label>
-        <terms:contributor>Jillur Quddus</terms:contributor>
+        {modelled_contributors}
         <dc:description xml:lang="en">{ontology.description}</dc:description>
         <owl:versionInfo {RDF_DATATYPE_STRING}>{ontology.owl_version}</owl:versionInfo>
-    </owl:Ontology>
-    <owl:AnnotationProperty rdf:about="http://www.w3.org/2004/02/skos/core#definition"/>'''
+    </owl:Ontology>\n\n'''
+
+
+def model_annotation_properties(ontology):
+    """ Model annotation properties from an Ontology object as an OWL RDF/XML string.
+
+    Args:
+        ontology (Ontology): Ontology object
+
+    Returns:
+        Modelled annotation properties OWL RDF/XML string
+
+    """
+
+    # Generate the annotation properties OWL RDF/XML string.
+    modelled_annotation_properties = f'''
+    <!-- ANNOTATION PROPERTIES -->\n\n
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/2004/02/skos/core#definition"/>\n\n'''
+    for annotation_property in ontology.annotation_properties:
+        modelled_annotation_properties += f'''
+    <owl:AnnotationProperty rdf:about="{ontology.iri}#{annotation_property.id}">
+        <rdfs:label xml:lang="en" {RDF_DATATYPE_STRING}>{annotation_property.name}</rdfs:label>
+        <skos:definition xml:lang="en" {RDF_DATATYPE_STRING}>{annotation_property.description}</skos:definition>
+    </owl:AnnotationProperty>\n\n'''
+    return modelled_annotation_properties
+
+
+def model_object_properties(ontology):
+    """ Model object properties from an Ontology object as an OWL RDF/XML string.
+
+    Args:
+        ontology (Ontology): Ontology object
+
+    Returns:
+        Modelled object properties OWL RDF/XML string
+
+    """
+
+    # Generate the object properties OWL RDF/XML string.
+    modelled_object_properties = f'''
+    <!-- OBJECT PROPERTIES -->\n\n'''
+    for object_property in ontology.object_properties:
+        modelled_object_properties += f'''
+    <owl:ObjectProperty rdf:about="{ontology.iri}#{object_property.id}">
+        <rdfs:subPropertyOf {OWL_TOP_OBJECT_PROPERTY_IRI}/>
+        <rdfs:label xml:lang="en" {RDF_DATATYPE_STRING}>{object_property.name}</rdfs:label>
+    </owl:ObjectProperty>\n\n'''
+    return modelled_object_properties
+
+
+def model_class_things(ontology):
+    """ Model thing classes from an Ontology object as an OWL RDF/XML string.
+
+    Args:
+        ontology (Ontology): Ontology object
+
+    Returns:
+        Modelled thing classes OWL RDF/XML string
+
+    """
+
+    # Generate the thing classes OWL RDF/XML string.
+    modelled_class_things = f'''
+    <!-- CLASSES - THINGS -->\n\n'''
+    for class_thing in ontology.class_things:
+        modelled_class_things += f'''
+    <owl:Class rdf:about="{ontology.iri}#{class_thing.id}">
+        <rdfs:label {RDF_DATATYPE_STRING}>{class_thing.name}</rdfs:label>
+        <rdfs:comment {RDF_DATATYPE_STRING}>{class_thing.description}</rdfs:comment>
+    </owl:Class>\n\n'''
+    return modelled_class_things
+
+
+def model_class_disciplines(ontology):
+    """ Model discipline classes from an Ontology object as an OWL RDF/XML string.
+
+    Args:
+        ontology (Ontology): Ontology object
+
+    Returns:
+        Modelled discipline classes OWL RDF/XML string
+
+    """
+
+    # Generate the discipline classes OWL RDF/XML string.
+    modelled_class_disciplines = f'''
+    <!-- CLASSES - DISCIPLINES -->\n\n'''
+    for class_discipline in ontology.class_disciplines:
+        modelled_class_disciplines += f'''
+    <owl:Class rdf:about="{ontology.iri}#{class_discipline.id}">
+        <rdfs:subClassOf rdf:resource="{ontology.iri}#{class_discipline.thing_id}"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="{ontology.iri}#{class_discipline.object_property_id}"/>
+                <owl:someValuesFrom rdf:resource="{ontology.iri}#{class_discipline.thing_id}"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <entityType xml:lang="en" {RDF_DATATYPE_STRING}>{ENTITY_TYPE_DISCIPLINE}</entityType>
+        <rdfs:label {RDF_DATATYPE_STRING}>{class_discipline.name}</rdfs:label>
+        <skos:definition xml:lang="en" {RDF_DATATYPE_STRING}>{class_discipline.description}</skos:definition>
+    </owl:Class>\n\n'''
+    return modelled_class_disciplines
+
+
+def model_class_branches(ontology):
+    """ Model branch classes from an Ontology object as an OWL RDF/XML string.
+
+    Args:
+        ontology (Ontology): Ontology object
+
+    Returns:
+        Modelled branch classes OWL RDF/XML string
+
+    """
+
+    # Generate the branch classes OWL RDF/XML string.
+    modelled_class_branches = f'''
+    <!-- CLASSES - BRANCHES -->\n\n'''
+    for class_branch in ontology.class_branches:
+
+        # Branch description (nullable)
+        skos_definition = \
+            (f'\n        <skos:definition xml:lang="en" {RDF_DATATYPE_STRING}>{class_branch.description}'
+             f'</skos:definition>') if hasattr(class_branch, 'description') else ''
+
+        # Branch responsibilities (nullable)
+        responsibilities = \
+            (f'\n        <responsibilities xml:lang="en" {RDF_DATATYPE_STRING}>{class_branch.responsibilities}'
+             f'</responsibilities>') if hasattr(class_branch, 'responsibilities') else ''
+
+        modelled_class_branches += f'''
+    <owl:Class rdf:about="{ontology.iri}#{class_branch.id}">
+        <rdfs:subClassOf rdf:resource="{ontology.iri}#{class_branch.discipline_id}"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="{ontology.iri}#{class_branch.object_property_id}"/>
+                <owl:someValuesFrom rdf:resource="{ontology.iri}#{class_branch.discipline_id}"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <entityType xml:lang="en" {RDF_DATATYPE_STRING}>{ENTITY_TYPE_BRANCH}</entityType>
+        <rdfs:label {RDF_DATATYPE_STRING}>{class_branch.name}</rdfs:label>{skos_definition}{responsibilities}
+        <url xml:lang="en" rdf:resource="{class_branch.url}"/>
+    </owl:Class>\n\n'''
+    return modelled_class_branches
 
 
 def write_ontology_to_file(modelled_ontology, base_working_dir):
