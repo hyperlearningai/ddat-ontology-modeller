@@ -13,8 +13,8 @@ class Role:
             branch_id (string): Branch ID
             description (string): Role description.
             url (string): Role URL including anchor ID.
-            responsibilities (string): Role responsibilities.
-            civil_service_job_grades (string): Role civil service job grades.
+            responsibilities (list): List of role responsibilities.
+            civil_service_job_grades (list): List of role civil service job grades.
         """
 
         self.name = name
@@ -24,6 +24,10 @@ class Role:
         self.responsibilities = responsibilities
         self.civil_service_job_grades = civil_service_job_grades
         self.iri_id = string_utils.camel_case(name)
+        self.skills = None
+
+    def set_skills(self, skills):
+        self.skills = skills
 
     def __str__(self):
         """ Override the __str__() method to return the class name followed
