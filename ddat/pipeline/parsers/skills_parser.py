@@ -39,7 +39,7 @@ def run(driver_path, ddat_base_url, ddat_skills_resource, base_working_dir):
     """
     
     # Open a browser and return a web driver instance.
-    print('Opening a headless web driver instance.')
+    print('Opening a headless web driver instance...')
     driver = open_browser(driver_path, ddat_base_url, ddat_skills_resource)
     
     try:
@@ -136,8 +136,7 @@ def parse_all_skills(driver):
             anchor_id=skill_name_elem.get_attribute('id'),
             name=skill_name_elem.text,
             description=skill_description_elem.text,
-            skill_levels=skill_levels
-        )
+            skill_levels=skill_levels)
 
         # Add this new Skill object to the list of Skills
         skills.append(skill)

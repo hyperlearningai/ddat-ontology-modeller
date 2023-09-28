@@ -51,7 +51,7 @@ def run(model_dir_path, driver_path, ddat_base_url, base_working_dir):
     class_branches = load_class_branches(model_dir_path)
 
     # Open a browser and return a web driver instance.
-    print('Opening a headless web driver instance.')
+    print('Opening a headless web driver instance...')
     driver = open_browser(driver_path, ddat_base_url)
 
     try:
@@ -219,6 +219,9 @@ def parse_all_roles(driver, class_branches):
                 responsibilities=role_responsibilities,
                 civil_service_job_grades=role_civil_service_job_grades)
             role.set_skills(role_skills)
+
+            # Add this new Role object to the list of Roles
+            roles.append(role)
 
             # Increment the number of roles processed counter
             number_roles_processed += 1
