@@ -3,6 +3,7 @@
 import pickle
 
 from ddat.classes.skill import Skill
+from ddat.config.logging_config import logger
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
@@ -39,15 +40,16 @@ def run(driver_path, ddat_base_url, ddat_skills_resource, base_working_dir):
     """
     
     # Open a browser and return a web driver instance.
-    print('Opening a headless web driver instance...')
+    logger.debug('Creating a headless web driver instance...')
     driver = open_browser(driver_path, ddat_base_url, ddat_skills_resource)
+    logger.debug('Successfully created a headless web driver instance.')
     
     try:
         
         # Parse all the skills in the DDaT professional capability framework.
-        print('Parsing all skills...')
+        logger.info('Parsing all skills...')
         skills = parse_all_skills(driver)
-        print('Parsing finished.')
+        logger.info('Parsing finished all skills.')
 
         # Write the list of parsed Skill objects to file
         write_skills_to_file(skills, base_working_dir)
@@ -55,8 +57,9 @@ def run(driver_path, ddat_base_url, ddat_skills_resource, base_working_dir):
     finally:
         
         # Close the web driver instance.
-        print('Closing the web driver instance.')
+        logger.debug('Closing the web driver instance...')
         close_driver(driver)
+        logger.debug('Successfully closed the web driver instance.')
 
 
 def open_browser(driver_path, ddat_base_url, ddat_skills_resource):

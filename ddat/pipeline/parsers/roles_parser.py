@@ -6,6 +6,7 @@ import json
 import pickle
 
 from ddat.classes.role import Role
+from ddat.config.logging_config import logger
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
@@ -51,15 +52,16 @@ def run(model_dir_path, driver_path, ddat_base_url, base_working_dir):
     class_branches = load_class_branches(model_dir_path)
 
     # Open a browser and return a web driver instance.
-    print('Opening a headless web driver instance...')
+    logger.debug('Creating a headless web driver instance...')
     driver = open_browser(driver_path, ddat_base_url)
+    logger.debug('Successfully created a headless web driver instance.')
 
     try:
 
         # Parse all the roles in the DDaT professional capability framework.
-        print('Parsing all roles...')
+        logger.info('Parsing all roles...')
         roles = parse_all_roles(driver, class_branches)
-        print('Parsing finished.')
+        logger.info('Parsing finished all roles.')
 
         # Write the list of parsed Role objects to file
         write_roles_to_file(roles, base_working_dir)
@@ -67,8 +69,9 @@ def run(model_dir_path, driver_path, ddat_base_url, base_working_dir):
     finally:
 
         # Close the web driver instance.
-        print('Closing the web driver instance.')
+        logger.debug('Closing the web driver instance...')
         close_driver(driver)
+        logger.debug('Successfully closed the web driver instance.')
 
 
 def load_class_branches(model_dir_path):
