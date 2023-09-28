@@ -1,3 +1,4 @@
+<a name="readme-top"></a>
 <div align="center">
 <h1>DDaT Ontology Modeller</h1>
 <p>Automated parsing and ontological modelling of the Digital, Data and Technology (DDaT) profession capability framework website.</p>
@@ -21,6 +22,8 @@
 
 The DDaT ontology modeller application is a Python application that automatically parses and ontologically models the <a href="https://ddat-capability-framework.service.gov.uk/" target="_blank">Digital, Data and Technology (DDaT) profession capability framework</a>. The goal of the resulting ontology is to enable effective <a href="https://ontopop.com/ontologies/ddat" target="_blank">visualisation</a> of the framework.
 
+<p align="right"><a href="#readme-top">Back to Top &#9650;</a></p>
+
 ## <a name="getting-started"></a>2. Getting Started
 
 ### <a name="prerequisites"></a>2.1. Prerequisites
@@ -30,6 +33,8 @@ Please ensure that the following prerequisite software services are installed in
 * **[Git](https://git-scm.com/)** - open source distributed version control system.
 * **[Python 3](https://www.python.org/downloads/)** - Python 3 general-purpose programming language.
 * **[ChromeDriver](https://googlechromelabs.github.io/chrome-for-testing/)** - WebDriver for Chrome.
+
+<p align="right"><a href="#readme-top">Back to Top &#9650; </a></p>
 
 ### <a name="clone-source-code"></a>2.2. Clone Source Code
 
@@ -44,6 +49,8 @@ $ git clone https://github.com/hyperlearningai/ddat-ontology-modeller
 $ cd ddat-ontology-modeller
 ```
 
+<p align="right"><a href="#readme-top">Back to Top &#9650;</a></p>
+
 ### <a name="install-python-packages"></a>2.3. Install Python Packages
 
 The DDaT ontology modeller application requires the [PyYAML](https://pypi.org/project/PyYAML/) and [Selenium](https://pypi.org/project/selenium/) Python packages to be installed in the relevant Python 3 environment. To install these Python package dependencies, please do so either manually or via the `requirements.txt` in `$DDAT_ONTOLOGY_MODELLER_BASE` using `pip` in the relevant Python environment as follows:
@@ -52,6 +59,8 @@ The DDaT ontology modeller application requires the [PyYAML](https://pypi.org/pr
 # Install the required Python package dependencies in your active Python environment
 $ pip install -r requirements.txt
 ```
+
+<p align="right"><a href="#readme-top">Back to Top &#9650;</a></p>
 
 ### <a name="configuration"></a>2.4. Configuration
 
@@ -62,6 +71,8 @@ Property | Description
 `app.base_working_dir` | Absolute path to a readable and writeable local directory where the DDaT ontology will be written to as an OWL RDF/XML file, as well as other working and application log files.
 `app.webdriver_paths.chromedriver` | Absolute path to the Google Chrome WebDriver (see [Prerequisites](#prerequisites)).
 
+<p align="right"><a href="#readme-top">Back to Top &#9650;</a></p>
+
 ### <a name="usage"></a>2.5. Usage
 
 To run the DDaT ontology modeller application, simply run `$DDAT_ONTOLOGY_MODELLER_BASE/main.py` as follows:
@@ -71,13 +82,19 @@ To run the DDaT ontology modeller application, simply run `$DDAT_ONTOLOGY_MODELL
 $ python main.py
 ```
 
+<p align="right"><a href="#readme-top">Back to Top &#9650;</a></p>
+
 ## <a name="license"></a>3. License
 
 The DDaT ontology modeller application source code is available and distributed under the MIT license. Please refer to [`LICENSE`](https://github.com/hyperlearningai/ddat-ontology-modeller/blob/main/LICENSE) for further information. The DDaT ontology created by the DDaT ontology modeller application contains public sector information licensed under the [Open Government License v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/).
 
+<p align="right"><a href="#readme-top">Back to Top &#9650;</a></p>
+
 ## <a name="acknowledgements"></a>4. Acknowledgements
 
 The DDaT ontology created by the DDaT ontology modeller application contains public sector information sourced from the [Digital, Data and Technology (DDaT) profession capability framework](https://ddat-capability-framework.service.gov.uk/) which is maintained by the [Central Digital and Data Office (CDDO)](https://www.gov.uk/government/organisations/central-digital-and-data-office). The framework is publicly-available under the [Open Government License v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/). 
+
+<p align="right"><a href="#readme-top">Back to Top &#9650;</a></p>
 
 ## <a name="authors"></a>5. Authors
 
@@ -85,3 +102,4 @@ The DDaT ontology modeller application was developed by the following authors:
 
 * **[Jillur Quddus](https://hyperlearning.ai/team/jillurquddus)**<br/>Chief Data Scientist & Principal Polyglot Software Engineer
 
+<p align="right"><a href="#readme-top">Back to Top &#9650;</a></p>
