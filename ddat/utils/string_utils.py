@@ -43,3 +43,17 @@ def remove_ordered_list_prefix(text):
     """
 
     return text.lstrip('0123456789. ')
+
+
+def clean_skill_level(raw_skill_level):
+    """ Remove the 'Level: ' prefix and capitalize.
+
+    Args:
+        raw_skill_level (string): Raw skill level
+
+    Returns:
+        Cleansed skill level string
+
+    """
+
+    return raw_skill_level.removeprefix('Level: ').upper()
