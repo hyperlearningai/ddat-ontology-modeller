@@ -57,3 +57,22 @@ def clean_skill_level(raw_skill_level):
     """
 
     return raw_skill_level.removeprefix('Level: ').upper()
+
+
+def list_to_ordered_list_string(input_list):
+    """ Convert a list of strings into a string ordered list.
+
+    Args:
+        input_list (list): List of strings
+
+    Returns:
+        String ordered list.
+
+    """
+
+    ordered_list_string = ''
+    counter = 1
+    for item in input_list:
+        ordered_list_string += f'{counter}. {item[0].upper()}{item[1:]}. \n'
+        counter += 1
+    return ordered_list_string
