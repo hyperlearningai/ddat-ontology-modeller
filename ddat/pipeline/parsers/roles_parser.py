@@ -1,10 +1,11 @@
 """ Roles parser pipeline module. """
 
+import ddat.utils.html_parser_utils as html_parser_utils
+import ddat.utils.string_utils as string_utils
 import json
 import pickle
 
 from ddat.classes.role import Role
-import ddat.utils.string_utils as string_utils
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
@@ -24,6 +25,12 @@ SELECTOR_ROLE_LINKS = "ul.contents-list-links.indented-list > li > a"
 
 # HTML classes.
 HTML_ROLE_LEVEL_HEADER_CLASS_NAME = "role-level-header"
+HTML_CHANGELOG_UL_CLASS_NAME = "roles-changelog"
+HTML_SMALL_PARAGRAPH_CLASS_NAME = "govuk-body-s"
+
+# Content templates.
+CONTENT_ROLE_RESPONSIBILITIES_PRECEDING_TEXT = "At this role level, you will"
+CONTENT_CIVIL_SERVICE_JOB_GRADES_PRECEDING_TEXT = "This role level is often performed at the"
 
 # Wait and timeout durations.
 IMPLICIT_WAIT = 5
@@ -55,7 +62,7 @@ def run(model_dir_path, driver_path, ddat_base_url, base_working_dir):
         print('Parsing finished.')
 
         # Write the list of parsed Role objects to file
-        # write_roles_to_file(roles, base_working_dir)
+        write_roles_to_file(roles, base_working_dir)
 
     finally:
 
@@ -114,65 +121,107 @@ def parse_all_roles(driver, class_branches):
 
     # Iterate over all class branches
     roles = []
-    x = 1
     for class_branch in class_branches:
-        if x < 2:
-            x += 1
 
-            # Navigate to the branch resource
-            driver.get(f'{class_branch.url}')
+        # Navigate to the branch resource
+        driver.get(f'{class_branch.url}')
 
-            # Parse the list of roles associated with this branch
-            role_link_elems = driver.find_elements(By.CSS_SELECTOR, SELECTOR_ROLE_LINKS)
-            for role_link_elem in role_link_elems:
+        # Parse the list of roles associated with this branch
+        role_link_elems = driver.find_elements(By.CSS_SELECTOR, SELECTOR_ROLE_LINKS)
+        number_roles = len(role_link_elems)
+        number_roles_processed = 0
+        for role_link_elem in role_link_elems:
 
-                # Get the role URL
-                role_url = role_link_elem.get_attribute('href')
+            # Get the role URL
+            role_url = role_link_elem.get_attribute('href')
 
-                # Extract the anchor ID from the URL
-                role_url_anchor_id = role_url.split("#")[1]
+            # Extract the anchor ID from the URL
+            role_url_anchor_id = role_url.split("#")[1]
 
-                # Locate the role level header with the anchor ID
-                role_heading_css_selector = f'h3#{role_url_anchor_id}.{HTML_ROLE_LEVEL_HEADER_CLASS_NAME}'
-                role_heading_elem = driver.find_element(By.CSS_SELECTOR, role_heading_css_selector)
+            # Locate the role level header with the anchor ID
+            role_heading_css_selector = f'h3#{role_url_anchor_id}.{HTML_ROLE_LEVEL_HEADER_CLASS_NAME}'
+            role_heading_elem = driver.find_element(By.CSS_SELECTOR, role_heading_css_selector)
 
-                # Get the role name and clean (remove the initial number and period prefix, and title)
-                role_name = string_utils.remove_ordered_list_prefix(role_heading_elem.text).title()
+            # Get the role name and clean (remove the initial number and period prefix, and title)
+            role_name = string_utils.remove_ordered_list_prefix(role_heading_elem.text).title()
 
-                # Locate the first paragraph immediately after the role level header
-                role_description_css_selector = f'{role_heading_css_selector} + p'
-                role_description_elem = driver.find_element(By.CSS_SELECTOR, role_description_css_selector)
+            # Locate all paragraphs that are siblings (i.e. excluding those in the skills table) of the
+            # role level header which are between the current role level header and the next role level header.
+            role_paragraph_sibling_elems = driver.find_elements(
+                By.XPATH, f'//p[preceding-sibling::h3[@id="{role_url_anchor_id}"] '
+                          f'and count(following-sibling::h3)={number_roles - (number_roles_processed + 1)} '
+                          f'and not(contains(@class, "{HTML_SMALL_PARAGRAPH_CLASS_NAME}"))]')
 
-                # Get the role description
-                role_description = role_description_elem.text
+            # Get the role description (as the 1st paragraph after the role level header).
+            # Note that even if the role description is missing on the webpage,
+            # an empty <p class="govuk-body"></p> is still rendered as part of the DOM.
+            # This means that role_description will be an empty string object in this case.
+            role_description = role_paragraph_sibling_elems[0].text
 
-                # Locate the role unordered list elements after the role level header
-                role_lists_css_selector = f'{role_heading_css_selector} ~ ul'
-                role_lists_elems = driver.find_elements(By.CSS_SELECTOR, role_lists_css_selector)
+            # Locate all the unordered lists that are siblings (i.e. excluding those in the skills table) of the
+            # role level header which are between the current role level header and the next role level header.
+            role_ul_sibling_elems = driver.find_elements(
+                By.XPATH, f'//ul[preceding-sibling::h3[@id="{role_url_anchor_id}"] '
+                          f'and count(following-sibling::h3)={number_roles - (number_roles_processed + 1)} '
+                          f'and not(contains(@class, "{HTML_CHANGELOG_UL_CLASS_NAME}"))]')
+            number_ul_siblings = len(role_ul_sibling_elems)
 
-                # Get the role responsibilities (as the 1st bullet point list after the role level header)
-                role_responsibilities = []
-                role_responsibility_elems = role_lists_elems[0].find_elements(By.TAG_NAME, "li")
-                for role_responsibility_elem in role_responsibility_elems:
-                    role_responsibilities.append(role_responsibility_elem.text)
+            # If there are two unordered list siblings, then both the list of responsibilities
+            # and list of civil service job grades are available for this role.
+            role_responsibilities = []
+            role_civil_service_job_grades = []
+            if number_ul_siblings == 2:
 
-                # Get the list of civil service job grades (as the 2nd bullet point list after the role level header)
-                role_civil_service_job_grades = []
-                role_civil_service_job_grade_elems = role_lists_elems[1].find_elements(By.TAG_NAME, "li")
-                for role_civil_service_job_grade_elem in role_civil_service_job_grade_elems:
-                    role_civil_service_job_grades.append(role_civil_service_job_grade_elem.text)
+                # Get the list of role responsibilities (as the 1st unordered list)
+                role_responsibilities = html_parser_utils.ul_to_list(role_ul_sibling_elems[0])
 
-                # Create a Role object for this role
-                role = Role(
-                    name=role_name,
-                    branch_id=class_branch.id,
-                    description=role_description,
-                    url=role_url,
-                    responsibilities=role_responsibilities,
-                    civil_service_job_grades=role_civil_service_job_grades)
+                # Get the list of civil service job grades (as the 2nd unordered list)
+                role_civil_service_job_grades = html_parser_utils.ul_to_list(role_ul_sibling_elems[1])
 
-                # Add this new Role object to the list of Roles
-                roles.append(role)
+            # If there is only one unordered list, then determine whether it is the list of role responsibilities
+            # or the list of civil service job grades by examining the contents of the paragraphs parsed earlier.
+            elif number_ul_siblings == 1:
+                for role_paragraph_sibling_elem in role_paragraph_sibling_elems:
+
+                    # Get the list of role responsibilities (as the 1st and only unordered list)
+                    if CONTENT_ROLE_RESPONSIBILITIES_PRECEDING_TEXT in role_paragraph_sibling_elem.text:
+                        role_responsibilities = html_parser_utils.ul_to_list(role_ul_sibling_elems[0])
+                        break
+
+                    # Get the list of civil service job grades (as the 1st and only unordered list)
+                    elif CONTENT_CIVIL_SERVICE_JOB_GRADES_PRECEDING_TEXT in role_paragraph_sibling_elem.text:
+                        role_civil_service_job_grades = html_parser_utils.ul_to_list(role_ul_sibling_elems[0])
+                        break
+
+            # Locate the skills table and its rows of skills
+            role_skill_table_css_selector = f'{role_heading_css_selector} ~ table'
+            role_skill_table_elem = driver.find_element(By.CSS_SELECTOR, role_skill_table_css_selector)
+            role_skill_table_th_css_selector = f'tbody > tr > th'
+            role_skill_table_th_elems = role_skill_table_elem.find_elements(
+                By.CSS_SELECTOR, role_skill_table_th_css_selector)
+
+            # Get the dictionary of skills
+            role_skills = {}
+            for role_skill_table_th_elem in role_skill_table_th_elems:
+                role_skill_table_th_p_elems = role_skill_table_th_elem.find_elements(By.TAG_NAME, 'p')
+                role_skill_name_link_elem = role_skill_table_th_p_elems[0].find_element(By.TAG_NAME, 'a')
+                role_skill_name = role_skill_name_link_elem.text
+                role_skill_iri_id = string_utils.camel_case(role_skill_name)
+                role_skill_level = role_skill_table_th_p_elems[1].text
+                role_skills[role_skill_iri_id] = string_utils.clean_skill_level(role_skill_level)
+
+            # Create a Role object for this role
+            role = Role(
+                name=role_name,
+                branch_id=class_branch.id,
+                description=role_description,
+                url=role_url,
+                responsibilities=role_responsibilities,
+                civil_service_job_grades=role_civil_service_job_grades)
+            role.set_skills(role_skills)
+
+            # Increment the number of roles processed counter
+            number_roles_processed += 1
 
     return roles
 
