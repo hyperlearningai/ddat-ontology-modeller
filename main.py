@@ -7,6 +7,7 @@ Usage: main.py
 import ddat.utils.yaml_utils as yaml_utils
 import ddat.pipeline.setup as setup
 import ddat.pipeline.parsers.skills_parser as skills_parser
+import ddat.pipeline.parsers.roles_parser as roles_parser
 import ddat.pipeline.modellers.ontology_modeller as ontology_modeller
 
 
@@ -22,6 +23,7 @@ model_dir_path = './ddat/model/'
 # Toggle pipeline modules to run.
 run_module_setup = True
 run_module_parser_skills = True
+run_module_parser_roles = True
 run_module_modeller_ontology = True
 
 # Run the environment setup pipeline module.
@@ -39,6 +41,16 @@ if run_module_parser_skills:
         ddat_skills_resource=config_ddat['resources']['skills'],
         base_working_dir=config_base_working_dir)
     print(f'Finished running the {skills_parser.MODULE_NAME} module.')
+
+# Run the roles parser pipeline module
+if run_module_parser_roles:
+    print(f'Running the {roles_parser.MODULE_NAME} module...')
+    roles_parser.run(
+        model_dir_path=model_dir_path,
+        driver_path=config_chromedriver['driver'],
+        ddat_base_url=config_ddat['base_url'],
+        base_working_dir=config_base_working_dir)
+    print(f'Finished running the {roles_parser.MODULE_NAME} module.')
 
 # Run the ontology modeller pipeline module.
 if run_module_modeller_ontology:
