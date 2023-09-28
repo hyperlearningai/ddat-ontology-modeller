@@ -1,6 +1,7 @@
 """ Ontology modeller pipeline module. """
 
 import ddat.utils.string_utils as string_utils
+import ddat.utils.visualisation_utils as visualisation_utils
 import json
 import pickle
 
@@ -24,6 +25,7 @@ INPUT_ROLES_FILE_PATH = 'parsed/roles.pkl'
 
 # Output file relative path and name.
 OUTPUT_FILE_PATH = 'modelled/ddat.owl'
+OUTPUT_FILTERED_FILE_PATH = 'modelled/ddat-visualisation.owl'
 
 # OWL RDF/XML substrings.
 RDF_DATATYPE_STRING = 'rdf:datatype="http://www.w3.org/2001/XMLSchema#string"'
@@ -48,7 +50,7 @@ SKILL_LEVEL_OBJECT_PROPERTY_ID = {
 }
 
 
-def run(model_dir_path, base_working_dir, ddat_base_url, ddat_skills_resource):
+def run(model_dir_path, base_working_dir, ddat_base_url, ddat_skills_resource, visualisation_apply_filters):
     """ Run this pipeline module.
 
     Args:
@@ -56,6 +58,7 @@ def run(model_dir_path, base_working_dir, ddat_base_url, ddat_skills_resource):
         base_working_dir (string): Path to the base working directory.
         ddat_base_url (string): Base URL to the DDaT profession capability framework website.
         ddat_skills_resource (string): Relative URL to the DDaT skills resource.
+        visualisation_apply_filters (bool): Whether to apply visualisation filters.
 
     """
 
@@ -88,6 +91,9 @@ def run(model_dir_path, base_working_dir, ddat_base_url, ddat_skills_resource):
 
     # Write the modelled ontology OWL RDF/XML string to file.
     write_ontology_to_file(modelled_ontology, base_working_dir)
+
+    # Write a filtered ontology OWL RDF/XML string to file for visualisation purposes (optional).
+    write_filtered_ontology_to_file(ontology, visualisation_apply_filters, base_working_dir)
 
 
 def load_ontology_metadata(model_dir_path):
@@ -577,3 +583,22 @@ def write_ontology_to_file(modelled_ontology, base_working_dir):
 
     with open(f'{base_working_dir}/{OUTPUT_FILE_PATH}', 'w') as f:
         f.write(f'{modelled_ontology}')
+
+
+def write_filtered_ontology_to_file(ontology, visualisation_apply_filters, base_working_dir):
+    """ Filter a post-modelled DDaT ontology OWL RDF/XML file for visualisation
+    by removing the Skill parent class and relationships to it thereby
+    removing links that do not add value to the ontology visualisation.
+
+    Args:
+        ontology (Ontology): Ontology object
+        visualisation_apply_filters (bool): Whether to apply visualisation filters.
+        base_working_dir (string): Path to the base working directory.
+
+    """
+
+    if visualisation_apply_filters:
+        visualisation_utils.filter_ontology(
+            skill_iri=f'{ontology.iri}#{OWL_SKILL_CLASS_ID}',
+            modelled_ddat_ontology_owl_file_path=f'{base_working_dir}/{OUTPUT_FILE_PATH}',
+            filtered_ddat_ontology_owl_file_path=f'{base_working_dir}/{OUTPUT_FILTERED_FILE_PATH}')

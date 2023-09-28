@@ -18,6 +18,7 @@ config = yaml_utils.read_yaml('./ddat/config/config.yaml')
 config_webdriver_path = config['app']['webdriver_paths']['chromedriver']
 config_ddat = config['ddat']
 config_base_working_dir = config['app']['base_working_dir']
+config_visualisation_apply_filters = config['app']['visualisation']['apply_filters']
 
 # Ontology model.
 model_dir_path = './ddat/model/'
@@ -66,7 +67,8 @@ try:
             model_dir_path=model_dir_path,
             base_working_dir=config_base_working_dir,
             ddat_base_url=config_ddat['base_url'],
-            ddat_skills_resource=config_ddat['resources']['skills'])
+            ddat_skills_resource=config_ddat['resources']['skills'],
+            visualisation_apply_filters=config_visualisation_apply_filters)
         logger.info(f'Finished running the {ontology_modeller.MODULE_NAME} module.')
 
 except Exception as e:
