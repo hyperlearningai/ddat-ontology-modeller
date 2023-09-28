@@ -258,7 +258,8 @@ def model_ontology(ontology, ddat_base_url, ddat_skills_resource):
             f'{model_class_disciplines(ontology)}'
             f'{model_class_branches(ontology)}'
             f'{model_class_skills(ontology, ddat_base_url, ddat_skills_resource)}'
-            f'{model_class_roles(ontology)}')
+            f'{model_class_roles(ontology)}'
+            f'</rdf:RDF>')
 
 
 def model_ontology_metadata(ontology):
