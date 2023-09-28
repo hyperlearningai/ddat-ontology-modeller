@@ -15,7 +15,7 @@ from ddat.config.logging_config import logger
 
 # Application configuration.
 config = yaml_utils.read_yaml('./ddat/config/config.yaml')
-config_chromedriver = config['app']['webdrivers']['chromedriver']
+config_webdriver_path = config['app']['webdriver_paths']['chromedriver']
 config_ddat = config['ddat']
 config_base_working_dir = config['app']['base_working_dir']
 
@@ -43,7 +43,7 @@ try:
     if run_module_parser_skills:
         logger.info(f'Running the {skills_parser.MODULE_NAME} module...')
         skills_parser.run(
-            driver_path=config_chromedriver['driver'],
+            driver_path=config_webdriver_path,
             ddat_base_url=config_ddat['base_url'],
             ddat_skills_resource=config_ddat['resources']['skills'],
             base_working_dir=config_base_working_dir)
@@ -54,7 +54,7 @@ try:
         logger.info(f'Running the {roles_parser.MODULE_NAME} module...')
         roles_parser.run(
             model_dir_path=model_dir_path,
-            driver_path=config_chromedriver['driver'],
+            driver_path=config_webdriver_path,
             ddat_base_url=config_ddat['base_url'],
             base_working_dir=config_base_working_dir)
         logger.info(f'Finished running the {roles_parser.MODULE_NAME} module.')

@@ -1,8 +1,7 @@
 app:
   base_working_dir: /tmp/ddat-parser
-  webdrivers:
-    chromedriver:
-      driver: /opt/drivers/webdrivers/chromedriver/117.0.5938.92/chromedriver
+  webdriver_paths:
+    chromedriver: /opt/drivers/webdrivers/chromedriver/117.0.5938.92/chromedriver
 ddat:
   base_url: https://ddat-capability-framework.service.gov.uk
   resources:
