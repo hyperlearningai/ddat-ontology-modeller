@@ -206,7 +206,7 @@ def parse_all_roles(driver, class_branches):
                 role_skill_table_th_p_elems = role_skill_table_th_elem.find_elements(By.TAG_NAME, 'p')
                 role_skill_name_link_elem = role_skill_table_th_p_elems[0].find_element(By.TAG_NAME, 'a')
                 role_skill_name = role_skill_name_link_elem.text
-                role_skill_iri_id = string_utils.camel_case(role_skill_name)
+                role_skill_iri_id = string_utils.pascal_case(role_skill_name)
                 role_skill_level = role_skill_table_th_p_elems[1].text
                 role_skills[role_skill_iri_id] = string_utils.clean_skill_level(role_skill_level)
 

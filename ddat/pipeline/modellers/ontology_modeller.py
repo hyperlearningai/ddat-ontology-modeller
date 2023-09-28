@@ -30,11 +30,22 @@ RDF_DATATYPE_STRING = 'rdf:datatype="http://www.w3.org/2001/XMLSchema#string"'
 OWL_TOP_OBJECT_PROPERTY_IRI = 'rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"'
 OWL_SKILL_CLASS_ID = 'skill'
 
+# Object property restrictions.
+OBJECT_PROPERTY_SPECIALIST_IN_ID = 'specialistIn'
+
 # Entity types.
 ENTITY_TYPE_DISCIPLINE = 'Discipline'
 ENTITY_TYPE_BRANCH = 'Branch'
 ENTITY_TYPE_ROLE = 'Role'
 ENTITY_TYPE_SKILL = 'Skill'
+
+# Skill level <> object property ID mapping.
+SKILL_LEVEL_OBJECT_PROPERTY_ID = {
+    'AWARENESS': 'awarenessOf',
+    'WORKING': 'workingLevelOf',
+    'PRACTITIONER': 'practitionerOf',
+    'EXPERT': 'expertIn'
+}
 
 
 def run(model_dir_path, base_working_dir, ddat_base_url, ddat_skills_resource):
@@ -68,6 +79,9 @@ def run(model_dir_path, base_working_dir, ddat_base_url, ddat_skills_resource):
 
     # Load the parsed Skill objects from file.
     ontology = load_class_skills(ontology, base_working_dir)
+
+    # Load the parsed Role objects from file.
+    ontology = load_class_roles(ontology, base_working_dir)
 
     # Model the Ontology as an OWL RDF/XML ontology.
     modelled_ontology = model_ontology(ontology, ddat_base_url, ddat_skills_resource)
@@ -206,6 +220,24 @@ def load_class_skills(ontology, base_working_dir):
     return ontology
 
 
+def load_class_roles(ontology, base_working_dir):
+    """ Load the list of parsed Role objects from file.
+
+    Args:
+        ontology (Ontology): Ontology object
+        base_working_dir (string): Path to the base working directory.
+
+    Returns:
+        Ontology object.
+
+    """
+
+    with open(f'{base_working_dir}/{INPUT_ROLES_FILE_PATH}', 'rb') as f:
+        roles = pickle.load(f)
+    ontology.set_class_roles(roles)
+    return ontology
+
+
 def model_ontology(ontology, ddat_base_url, ddat_skills_resource):
     """ Model an Ontology object as an OWL RDF/XML ontology.
 
@@ -225,7 +257,8 @@ def model_ontology(ontology, ddat_base_url, ddat_skills_resource):
             f'{model_class_things(ontology)}'
             f'{model_class_disciplines(ontology)}'
             f'{model_class_branches(ontology)}'
-            f'{model_class_skills(ontology, ddat_base_url, ddat_skills_resource)}')
+            f'{model_class_skills(ontology, ddat_base_url, ddat_skills_resource)}'
+            f'{model_class_roles(ontology)}')
 
 
 def model_ontology_metadata(ontology):
@@ -287,6 +320,7 @@ def model_annotation_properties(ontology):
         <rdfs:label xml:lang="en" {RDF_DATATYPE_STRING}>{annotation_property.name}</rdfs:label>
         <skos:definition xml:lang="en" {RDF_DATATYPE_STRING}>{annotation_property.description}</skos:definition>
     </owl:AnnotationProperty>\n\n'''
+
     return modelled_annotation_properties
 
 
@@ -310,6 +344,7 @@ def model_object_properties(ontology):
         <rdfs:subPropertyOf {OWL_TOP_OBJECT_PROPERTY_IRI}/>
         <rdfs:label xml:lang="en" {RDF_DATATYPE_STRING}>{object_property.name}</rdfs:label>
     </owl:ObjectProperty>\n\n'''
+
     return modelled_object_properties
 
 
@@ -333,6 +368,7 @@ def model_class_things(ontology):
         <rdfs:label {RDF_DATATYPE_STRING}>{class_thing.name}</rdfs:label>
         <rdfs:comment {RDF_DATATYPE_STRING}>{class_thing.description}</rdfs:comment>
     </owl:Class>\n\n'''
+
     return modelled_class_things
 
 
@@ -364,6 +400,7 @@ def model_class_disciplines(ontology):
         <rdfs:label {RDF_DATATYPE_STRING}>{class_discipline.name}</rdfs:label>
         <skos:definition xml:lang="en" {RDF_DATATYPE_STRING}>{class_discipline.description}</skos:definition>
     </owl:Class>\n\n'''
+
     return modelled_class_disciplines
 
 
@@ -406,6 +443,7 @@ def model_class_branches(ontology):
         <rdfs:label {RDF_DATATYPE_STRING}>{class_branch.name}</rdfs:label>{skos_definition}{responsibilities}
         <url xml:lang="en" rdf:resource="{class_branch.url}"/>
     </owl:Class>\n\n'''
+
     return modelled_class_branches
 
 
@@ -431,10 +469,14 @@ def model_class_skills(ontology, ddat_base_url, ddat_skills_resource):
         class_iri = f'{ontology.iri}#{OWL_SKILL_CLASS_ID}{string_utils.pascal_case(class_skill.name)}'
         skill_url = f'{ddat_base_url}/{ddat_skills_resource}#{class_skill.anchor_id}'
         skill_iri = f'{ontology.iri}#{OWL_SKILL_CLASS_ID}'
-        awareness_level_capabilities = model_skill_level_capabilities(class_skill.skill_levels['Awareness'])
-        working_level_capabilities = model_skill_level_capabilities(class_skill.skill_levels['Working'])
-        practitioner_level_capabilities = model_skill_level_capabilities(class_skill.skill_levels['Practitioner'])
-        expert_level_capabilities = model_skill_level_capabilities(class_skill.skill_levels['Expert'])
+        awareness_level_capabilities = string_utils.list_to_ordered_list_string(
+            class_skill.skill_levels['Awareness'])
+        working_level_capabilities = string_utils.list_to_ordered_list_string(
+            class_skill.skill_levels['Working'])
+        practitioner_level_capabilities = string_utils.list_to_ordered_list_string(
+            class_skill.skill_levels['Practitioner'])
+        expert_level_capabilities = string_utils.list_to_ordered_list_string(
+            class_skill.skill_levels['Expert'])
 
         modelled_class_skills += f'''
     <owl:Class rdf:about="{class_iri}">
@@ -448,27 +490,79 @@ def model_class_skills(ontology, ddat_base_url, ddat_skills_resource):
         <practitionerLevelCapabilities xml:lang="en" {RDF_DATATYPE_STRING}>{practitioner_level_capabilities}</practitionerLevelCapabilities>
         <expertLevelCapabilities xml:lang="en" {RDF_DATATYPE_STRING}>{expert_level_capabilities}</expertLevelCapabilities>
     </owl:Class>\n\n'''
+
     return modelled_class_skills
 
 
-def model_skill_level_capabilities(skill_level_capabilities):
-    """ Model skill level capabilities.
+def model_class_roles(ontology):
+    """ Model role classes from an Ontology object as an OWL RDF/XML string.
 
     Args:
-        skill_level_capabilities (list): List of capabilities at a skill level.
+        ontology (Ontology): Ontology object
 
     Returns:
-        String representation of the list of capabilities at a skill level.
+        Modelled role classes OWL RDF/XML string
+
     """
 
-    modelled_skill_level_capabilities = ''
-    counter = 1
-    for skill_level_capability in skill_level_capabilities:
-        modelled_skill_level_capability = \
-            f'{counter}. {skill_level_capability[0].upper()}{skill_level_capability[1:]}. \n'
-        modelled_skill_level_capabilities += modelled_skill_level_capability
-        counter += 1
-    return modelled_skill_level_capabilities
+    # Generate the role classes OWL RDF/XML string.
+    modelled_class_roles = f'''
+        <!-- CLASSES - ROLES -->\n\n'''
+    for class_role in ontology.class_roles:
+
+        # Class attributes.
+        class_iri = f'{ontology.iri}#{class_role.iri_id}'
+        branch_iri = f'{ontology.iri}#{class_role.branch_id}'
+        modelled_role_skills = model_role_skills(ontology, class_role.skills)
+        modelled_role_responsibilities = string_utils.list_to_ordered_list_string(
+            class_role.responsibilities)
+        modelled_civil_service_job_grades = string_utils.list_to_ordered_list_string(
+            class_role.civil_service_job_grades)
+
+        modelled_class_roles += f'''
+    <owl:Class rdf:about="{class_iri}">
+        <rdfs:subClassOf rdf:resource="{branch_iri}"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="{ontology.iri}#{OBJECT_PROPERTY_SPECIALIST_IN_ID}"/>
+                <owl:someValuesFrom rdf:resource="{branch_iri}"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>{modelled_role_skills}
+        <entityType xml:lang="en" {RDF_DATATYPE_STRING}>{ENTITY_TYPE_ROLE}</entityType>
+        <rdfs:label xml:lang="en">{class_role.name}</rdfs:label>
+        <skos:definition xml:lang="en" {RDF_DATATYPE_STRING}>{class_role.description}</skos:definition>
+        <url xml:lang="en" rdf:resource="{class_role.url}"/>
+        <responsibilities xml:lang="en" {RDF_DATATYPE_STRING}>{modelled_role_responsibilities}</responsibilities>
+        <civilServiceJobGrades xml:lang="en" {RDF_DATATYPE_STRING}>{modelled_civil_service_job_grades}</civilServiceJobGrades>
+    </owl:Class>\n\n'''
+
+    return modelled_class_roles
+
+
+def model_role_skills(ontology, role_skills):
+    """ Model role skill relationships as an OWL RDF/XML string.
+
+    Args:
+        ontology (Ontology): Ontology object
+        role_skills (dict): Dictionary of skills and skill levels associate with a role.
+
+    Returns:
+        Modelled role skill relationships OWL RDF/XML string
+
+    """
+
+    # Generate the role skill OWL RDF/XML string.
+    modelled_role_skill_relationships = ''
+    for skill_iri_id, skill_level in role_skills.items():
+        modelled_role_skill_relationships += f'''
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="{ontology.iri}#{SKILL_LEVEL_OBJECT_PROPERTY_ID[skill_level]}"/>
+                <owl:someValuesFrom rdf:resource="{ontology.iri}#{OWL_SKILL_CLASS_ID}{skill_iri_id}"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>'''
+
+    return modelled_role_skill_relationships
 
 
 def write_ontology_to_file(modelled_ontology, base_working_dir):
