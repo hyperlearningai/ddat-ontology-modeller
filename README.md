@@ -5,9 +5,10 @@
 <p><a href="https://ddat-capability-framework.service.gov.uk/" target="_blank">DDaT Capability Framework</a> · <a href="https://ontopop.com/ontologies/ddat" target="_blank">DDaT Ontology Visualisation</a></p>
 </div>
 
-| ![DDaT Ontology](static/images/screenshots/ddat-ontology-screenshot-01.png "DDaT Ontology") |
-|:-------------------------------------------------------------------------------------------:|
-|                           DDaT ontology visualisation in OntoPop                            |
+| ![DDaT Ontology](static/images/screenshots/ddat-ontology-screenshot.png "DDaT Ontology") |
+|:----------------------------------------------------------------------------------------:|
+|                          DDaT ontology visualisation in OntoPop                          |
+<br/>
 
 ## Table of Contents  
 [1. Introduction](#introduction)<br/>
