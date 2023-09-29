@@ -1,5 +1,8 @@
 """ DDaT ontology visualisation utility functions. """
 
+# Filter windows.
+CLASS_THING_SKILL_LINE_COUNT = 5
+
 
 def filter_ontology(skill_iri, modelled_ddat_ontology_owl_file_path, filtered_ddat_ontology_owl_file_path):
     """ Filter a post-modelled DDaT ontology OWL RDF/XML file for visualisation
@@ -32,7 +35,7 @@ def filter_ontology(skill_iri, modelled_ddat_ontology_owl_file_path, filtered_dd
             # Identify the line numbers containing the skill class to filter
             if skill_owl_class_to_filter in modelled_ddat_ontology_line:
                 skill_owl_class_line_number_start = counter
-                skill_owl_class_line_number_end = counter + 3
+                skill_owl_class_line_number_end = counter + CLASS_THING_SKILL_LINE_COUNT
                 continue
 
             # Filter out the skill class definition

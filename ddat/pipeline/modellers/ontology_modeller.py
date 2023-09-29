@@ -36,6 +36,7 @@ OWL_SKILL_CLASS_ID = 'skill'
 OBJECT_PROPERTY_SPECIALIST_IN_ID = 'specialistIn'
 
 # Entity types.
+ENTITY_TYPE_THING = 'Thing'
 ENTITY_TYPE_DISCIPLINE = 'Discipline'
 ENTITY_TYPE_BRANCH = 'Branch'
 ENTITY_TYPE_ROLE = 'Role'
@@ -372,8 +373,10 @@ def model_class_things(ontology):
     for class_thing in ontology.class_things:
         modelled_class_things += f'''
     <owl:Class rdf:about="{ontology.iri}#{class_thing.id}">
+        <entityType xml:lang="en" {RDF_DATATYPE_STRING}>{ENTITY_TYPE_THING}</entityType>
         <rdfs:label {RDF_DATATYPE_STRING}>{class_thing.name}</rdfs:label>
         <rdfs:comment {RDF_DATATYPE_STRING}>{class_thing.description}</rdfs:comment>
+        <url xml:lang="en" rdf:resource="{class_thing.url}"/>
     </owl:Class>\n\n'''
 
     return modelled_class_things
