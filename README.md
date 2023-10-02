@@ -20,7 +20,8 @@
 &nbsp;&nbsp;&nbsp;&nbsp;[2.5. Usage](#usage)<br/>
 [3. License](#license)<br/>
 [4. Acknowledgements](#acknowledgements)<br/>
-[5. Authors](#authors)<br/>
+[5. Useful Links](#useful-links)<br/>
+[6. Authors](#authors)<br/>
 <br/>
 
 ## <a name="introduction"></a>1. Introduction
@@ -101,7 +102,16 @@ The DDaT ontology created by the DDaT ontology modeller application contains pub
 
 <p align="right"><a href="#readme-top">Back to Top &#9650;</a></p>
 
-## <a name="authors"></a>5. Authors
+## <a name="authors"></a>5. Useful Links
+
+* [DDaT profession capability framework](https://ddat-capability-framework.service.gov.uk/)
+* [DDaT ontology visualisation in OntoPop](https://ontopop.com/ontologies/ddat)
+* [DDaT ontology OWL RDF/XML file](https://github.com/hyperlearningai/ddat-ontology)
+* [DDaT ontology in WebProtégé](https://webprotege.stanford.edu/#projects/a86cf6a3-c6f1-4dc8-a8db-b8be17e39736/edit/Classes)
+
+<p align="right"><a href="#readme-top">Back to Top &#9650;</a></p>
+
+## <a name="authors"></a>6. Authors
 
 The DDaT ontology modeller application was developed by the following authors:
 
