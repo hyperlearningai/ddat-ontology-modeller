@@ -102,7 +102,7 @@ The DDaT ontology created by the DDaT ontology modeller application contains pub
 
 <p align="right"><a href="#readme-top">Back to Top &#9650;</a></p>
 
-## <a name="authors"></a>5. Useful Links
+## <a name="useful-links"></a>5. Useful Links
 
 * [DDaT profession capability framework](https://ddat-capability-framework.service.gov.uk/)
 * [DDaT ontology visualisation in OntoPop](https://ontopop.com/ontologies/ddat)
