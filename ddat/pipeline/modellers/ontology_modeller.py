@@ -24,9 +24,9 @@ INPUT_SKILLS_FILE_PATH = 'parsed/skills.pkl'
 INPUT_ROLES_FILE_PATH = 'parsed/roles.pkl'
 
 # Output file relative path and name.
-OUTPUT_FILE_PATH = 'modelled/ddat.pkl'
-OUTPUT_OWL_FILE_PATH = 'modelled/ddat.owl'
-OUTPUT_OWL_FILTERED_FILE_PATH = 'modelled/ddat-visualisation.owl'
+OUTPUT_FILE_PATH = 'models/ontology/ddat.pkl'
+OUTPUT_OWL_FILE_PATH = 'models/ontology/ddat.owl'
+OUTPUT_OWL_FILTERED_FILE_PATH = 'models/ontology/ddat-visualisation.owl'
 
 # OWL RDF/XML substrings.
 RDF_DATATYPE_STRING = 'rdf:datatype="http://www.w3.org/2001/XMLSchema#string"'

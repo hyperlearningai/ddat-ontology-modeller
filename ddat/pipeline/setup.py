@@ -3,7 +3,7 @@
 import os
 
 MODULE_NAME = 'Setup'
-required_working_dirs = ['logs', 'modelled', 'parsed']
+required_working_dirs = ['logs', 'models', 'models/ontology', 'models/semantic_similarity', 'parsed']
 
 
 def setup_environment(base_working_dir):

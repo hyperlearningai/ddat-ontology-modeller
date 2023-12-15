@@ -1,9 +1,20 @@
 app:
-  base_working_dir: /tmp/ddat-parser
+  base_working_dir: /tmp/ddat-ontology-modeller
+  pipeline:
+    parsers:
+      skills:
+        enabled: true
+      roles:
+        enabled: true
+    models:
+      ontology:
+        enabled: true
+        visualisation_apply_filters: true
+      semantic_similarity:
+        skills:
+          enabled: true
   webdriver_paths:
-    chromedriver: /opt/drivers/webdrivers/chromedriver/117.0.5938.92/chromedriver
-  visualisation:
-    apply_filters: true
+    chromedriver: /opt/drivers/webdrivers/chromedriver/120.0.6099.71/chromedriver
 ddat:
   base_url: https://ddat-capability-framework.service.gov.uk
   resources:
