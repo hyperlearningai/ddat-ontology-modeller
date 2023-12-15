@@ -23,7 +23,7 @@ config_webdriver_path = config['app']['webdriver_paths']['chromedriver']
 
 
 # Ontology model.
-model_dir_path = './ddat/model/'
+ontology_model_dir_path = './ddat/model/ontology/'
 
 
 # Start the application.
@@ -49,7 +49,7 @@ try:
     if config_pipeline['parsers']['roles']['enabled']:
         logger.info(f'Running the {roles_parser.MODULE_NAME} module...')
         roles_parser.run(
-            model_dir_path=model_dir_path,
+            ontology_model_dir_path=ontology_model_dir_path,
             driver_path=config_webdriver_path,
             ddat_base_url=config_ddat['base_url'],
             base_working_dir=config_base_working_dir)
@@ -59,7 +59,7 @@ try:
     if config_pipeline['models']['ontology']['enabled']:
         logger.info(f'Running the {ontology_modeller.MODULE_NAME} module...')
         ontology_modeller.run(
-            model_dir_path=model_dir_path,
+            ontology_model_dir_path=ontology_model_dir_path,
             base_working_dir=config_base_working_dir,
             ddat_base_url=config_ddat['base_url'],
             ddat_skills_resource=config_ddat['resources']['skills'],

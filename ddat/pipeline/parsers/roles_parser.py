@@ -37,11 +37,11 @@ CONTENT_CIVIL_SERVICE_JOB_GRADES_PRECEDING_TEXT = "This role level is often perf
 IMPLICIT_WAIT = 5
 
 
-def run(model_dir_path, driver_path, ddat_base_url, base_working_dir):
+def run(ontology_model_dir_path, driver_path, ddat_base_url, base_working_dir):
     """  Run this pipeline module.
 
     Args:
-        model_dir_path (string): Path to the directory holding the ontology model.
+        ontology_model_dir_path (string): Path to the directory holding the ontology model.
         driver_path (string): Path to the web driver.
         ddat_base_url (string): Base URL to the DDaT profession capability framework website.
         base_working_dir (string): Path to the base working directory.
@@ -49,7 +49,7 @@ def run(model_dir_path, driver_path, ddat_base_url, base_working_dir):
     """
 
     # Load the pre-defined branch classes from the ontology model.
-    class_branches = load_class_branches(model_dir_path)
+    class_branches = load_class_branches(ontology_model_dir_path)
 
     # Open a browser and return a web driver instance.
     logger.debug('Creating a headless web driver instance...')
@@ -74,18 +74,18 @@ def run(model_dir_path, driver_path, ddat_base_url, base_working_dir):
         logger.debug('Successfully closed the web driver instance.')
 
 
-def load_class_branches(model_dir_path):
+def load_class_branches(ontology_model_dir_path):
     """ Load the pre-defined branch classes from the ontology data model.
 
     Args:
-        model_dir_path (string): Path to the directory holding the pre-defined ontology data model.
+        ontology_model_dir_path (string): Path to the directory holding the pre-defined ontology data model.
 
     Returns:
         List of branch class objects.
 
     """
 
-    with open(f'{model_dir_path}/{INPUT_MODEL_CLASS_BRANCHES_FILE_NAME}', 'r') as f:
+    with open(f'{ontology_model_dir_path}/{INPUT_MODEL_CLASS_BRANCHES_FILE_NAME}', 'r') as f:
         class_branches = json.load(f, object_hook=lambda d: SimpleNamespace(**d))
     return class_branches
 

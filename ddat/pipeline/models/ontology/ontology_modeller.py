@@ -52,11 +52,11 @@ SKILL_LEVEL_OBJECT_PROPERTY_ID = {
 }
 
 
-def run(model_dir_path, base_working_dir, ddat_base_url, ddat_skills_resource, visualisation_apply_filters):
+def run(ontology_model_dir_path, base_working_dir, ddat_base_url, ddat_skills_resource, visualisation_apply_filters):
     """ Run this pipeline module.
 
     Args:
-        model_dir_path (string): Path to the directory holding the ontology model.
+        ontology_model_dir_path (string): Path to the directory holding the ontology model.
         base_working_dir (string): Path to the base working directory.
         ddat_base_url (string): Base URL to the DDaT profession capability framework website.
         ddat_skills_resource (string): Relative URL to the DDaT skills resource.
@@ -65,22 +65,22 @@ def run(model_dir_path, base_working_dir, ddat_base_url, ddat_skills_resource, v
     """
 
     # Load the pre-defined ontology metadata and create the initial Ontology object.
-    ontology = load_ontology_metadata(model_dir_path)
+    ontology = load_ontology_metadata(ontology_model_dir_path)
 
     # Load the pre-defined annotation properties from the ontology data model.
-    ontology = load_annotation_properties(ontology, model_dir_path)
+    ontology = load_annotation_properties(ontology, ontology_model_dir_path)
 
     # Load the pre-defined object properties from the ontology data model.
-    ontology = load_object_properties(ontology, model_dir_path)
+    ontology = load_object_properties(ontology, ontology_model_dir_path)
 
     # Load the pre-defined thing classes from the ontology model.
-    ontology = load_class_things(ontology, model_dir_path)
+    ontology = load_class_things(ontology, ontology_model_dir_path)
 
     # Load the pre-defined discipline classes from the ontology model.
-    ontology = load_class_disciplines(ontology, model_dir_path)
+    ontology = load_class_disciplines(ontology, ontology_model_dir_path)
 
     # Load the pre-defined branch classes from the ontology model.
-    ontology = load_class_branches(ontology, model_dir_path)
+    ontology = load_class_branches(ontology, ontology_model_dir_path)
 
     # Load the parsed Skill objects from file.
     ontology = load_class_skills(ontology, base_working_dir)
@@ -101,18 +101,18 @@ def run(model_dir_path, base_working_dir, ddat_base_url, ddat_skills_resource, v
     write_filtered_owl_ontology_to_file(ontology, visualisation_apply_filters, base_working_dir)
 
 
-def load_ontology_metadata(model_dir_path):
+def load_ontology_metadata(ontology_model_dir_path):
     """ Load the pre-defined ontology metadata and create the initial Ontology object.
 
     Args:
-        model_dir_path (string): Path to the directory holding the pre-defined ontology data model.
+        ontology_model_dir_path (string): Path to the directory holding the pre-defined ontology data model.
 
     Returns:
         Ontology object.
 
     """
 
-    with open(f'{model_dir_path}/{INPUT_MODEL_ONTOLOGY_METADATA_FILE_NAME}', 'r') as f:
+    with open(f'{ontology_model_dir_path}/{INPUT_MODEL_ONTOLOGY_METADATA_FILE_NAME}', 'r') as f:
         ontology_metadata = json.load(f, object_hook=lambda d: SimpleNamespace(**d))
     ontology = Ontology(
         name=ontology_metadata.name,
@@ -123,91 +123,91 @@ def load_ontology_metadata(model_dir_path):
     return ontology
 
 
-def load_annotation_properties(ontology, model_dir_path):
+def load_annotation_properties(ontology, ontology_model_dir_path):
     """ Load the pre-defined annotation properties from the ontology data model.
 
     Args:
         ontology (Ontology): Ontology object
-        model_dir_path (string): Path to the directory holding the pre-defined ontology data model.
+        ontology_model_dir_path (string): Path to the directory holding the pre-defined ontology data model.
 
     Returns:
         Ontology object.
 
     """
 
-    with open(f'{model_dir_path}/{INPUT_MODEL_ANNOTATION_PROPERTIES_FILE_NAME}', 'r') as f:
+    with open(f'{ontology_model_dir_path}/{INPUT_MODEL_ANNOTATION_PROPERTIES_FILE_NAME}', 'r') as f:
         annotation_properties = json.load(f, object_hook=lambda d: SimpleNamespace(**d))
     ontology.set_annotation_properties(annotation_properties)
     return ontology
 
 
-def load_object_properties(ontology, model_dir_path):
+def load_object_properties(ontology, ontology_model_dir_path):
     """ Load the pre-defined object properties from the ontology data model.
 
     Args:
         ontology (Ontology): Ontology object
-        model_dir_path (string): Path to the directory holding the pre-defined ontology data model.
+        ontology_model_dir_path (string): Path to the directory holding the pre-defined ontology data model.
 
     Returns:
         Ontology object.
 
     """
 
-    with open(f'{model_dir_path}/{INPUT_MODEL_OBJECT_PROPERTIES_FILE_NAME}', 'r') as f:
+    with open(f'{ontology_model_dir_path}/{INPUT_MODEL_OBJECT_PROPERTIES_FILE_NAME}', 'r') as f:
         object_properties = json.load(f, object_hook=lambda d: SimpleNamespace(**d))
     ontology.set_object_properties(object_properties)
     return ontology
 
 
-def load_class_things(ontology, model_dir_path):
+def load_class_things(ontology, ontology_model_dir_path):
     """ Load the pre-defined thing classes from the ontology data model.
 
     Args:
         ontology (Ontology): Ontology object
-        model_dir_path (string): Path to the directory holding the pre-defined ontology data model.
+        ontology_model_dir_path (string): Path to the directory holding the pre-defined ontology data model.
 
     Returns:
         Ontology object.
 
     """
 
-    with open(f'{model_dir_path}/{INPUT_MODEL_CLASS_THINGS_FILE_NAME}', 'r') as f:
+    with open(f'{ontology_model_dir_path}/{INPUT_MODEL_CLASS_THINGS_FILE_NAME}', 'r') as f:
         class_things = json.load(f, object_hook=lambda d: SimpleNamespace(**d))
     ontology.set_class_things(class_things)
     return ontology
 
 
-def load_class_disciplines(ontology, model_dir_path):
+def load_class_disciplines(ontology, ontology_model_dir_path):
     """ Load the pre-defined discipline classes from the ontology data model.
 
     Args:
         ontology (Ontology): Ontology object
-        model_dir_path (string): Path to the directory holding the pre-defined ontology data model.
+        ontology_model_dir_path (string): Path to the directory holding the pre-defined ontology data model.
 
     Returns:
         Ontology object.
 
     """
 
-    with open(f'{model_dir_path}/{INPUT_MODEL_CLASS_DISCIPLINES_FILE_NAME}', 'r') as f:
+    with open(f'{ontology_model_dir_path}/{INPUT_MODEL_CLASS_DISCIPLINES_FILE_NAME}', 'r') as f:
         class_disciplines = json.load(f, object_hook=lambda d: SimpleNamespace(**d))
     ontology.set_class_disciplines(class_disciplines)
     return ontology
 
 
-def load_class_branches(ontology, model_dir_path):
+def load_class_branches(ontology, ontology_model_dir_path):
     """ Load the pre-defined branch classes from the ontology data model.
 
     Args:
         ontology (Ontology): Ontology object
-        model_dir_path (string): Path to the directory holding the pre-defined ontology data model.
+        ontology_model_dir_path (string): Path to the directory holding the pre-defined ontology data model.
 
     Returns:
         Ontology object.
 
     """
 
-    with open(f'{model_dir_path}/{INPUT_MODEL_CLASS_BRANCHES_FILE_NAME}', 'r') as f:
+    with open(f'{ontology_model_dir_path}/{INPUT_MODEL_CLASS_BRANCHES_FILE_NAME}', 'r') as f:
         class_branches = json.load(f, object_hook=lambda d: SimpleNamespace(**d))
     ontology.set_class_branches(class_branches)
     return ontology
