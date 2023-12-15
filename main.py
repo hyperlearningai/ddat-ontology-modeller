@@ -8,7 +8,8 @@ import ddat.utils.yaml_utils as yaml_utils
 import ddat.pipeline.setup as setup
 import ddat.pipeline.parsers.skills_parser as skills_parser
 import ddat.pipeline.parsers.roles_parser as roles_parser
-import ddat.pipeline.modellers.ontology_modeller as ontology_modeller
+import ddat.pipeline.models.ontology.ontology_modeller as ontology_modeller
+import ddat.pipeline.models.semantic_similarity.duplicate_skills_detector as duplicate_skills_detector
 
 from ddat.config.logging_config import logger
 
@@ -64,6 +65,13 @@ try:
             ddat_skills_resource=config_ddat['resources']['skills'],
             visualisation_apply_filters=config_pipeline['models']['ontology']['visualisation_apply_filters'])
         logger.info(f'Finished running the {ontology_modeller.MODULE_NAME} module.')
+
+    # Run the duplicate skills detector pipeline module.
+    if config_pipeline['models']['semantic_similarity']['skills']['enabled']:
+        logger.info(f'Running the {duplicate_skills_detector.MODULE_NAME} module...')
+        duplicate_skills_detector.run(base_working_dir=config_base_working_dir)
+        logger.info(f'Finished running the {duplicate_skills_detector.MODULE_NAME} module.')
+
 
 except Exception as e:
 
