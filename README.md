@@ -59,7 +59,7 @@ $ cd ddat-ontology-modeller
 
 ### <a name="install-python-packages"></a>2.3. Install Python Packages
 
-The DDaT ontology modeller application requires the [PyYAML](https://pypi.org/project/PyYAML/) and [Selenium](https://pypi.org/project/selenium/) Python packages to be installed in the relevant Python 3 environment. To install these Python package dependencies, please do so either manually or via the `requirements.txt` in `$DDAT_ONTOLOGY_MODELLER_BASE` using `pip` in the relevant Python environment as follows:
+The DDaT ontology modeller application requires the [Pandas](https://pypi.org/project/pandas/), [PyYAML](https://pypi.org/project/PyYAML/), [Selenium](https://pypi.org/project/selenium/) and [Sentence Transformers](https://pypi.org/project/sentence-transformers/) Python packages to be installed in the relevant Python 3 environment. To install these Python package dependencies, please do so either manually or via the `requirements.txt` in `$DDAT_ONTOLOGY_MODELLER_BASE` using `pip` in the relevant Python environment as follows:
 
 ```
 # Install the required Python package dependencies in your active Python environment
