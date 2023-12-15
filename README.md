@@ -1,7 +1,7 @@
 <a name="readme-top"></a>
 <div align="center">
 <h1>DDaT Ontology Modeller</h1>
-<p>Automated parsing and ontological modelling of the Digital, Data and Technology (DDaT) profession capability framework website.</p>
+<p>Automated parsing, and ontological & machine learning-powered semantic similarity modelling, of the Digital, Data and Technology (DDaT) profession capability framework website.</p>
 <p><a href="https://ddat-capability-framework.service.gov.uk/" target="_blank">DDaT Capability Framework</a> · <a href="https://ontopop.com/ontologies/ddat" target="_blank">DDaT Ontology Visualisation</a></p>
 </div>
 
@@ -26,7 +26,7 @@
 
 ## <a name="introduction"></a>1. Introduction
 
-The DDaT ontology modeller application is a Python application that automatically parses and ontologically models the <a href="https://ddat-capability-framework.service.gov.uk/" target="_blank">Digital, Data and Technology (DDaT) profession capability framework</a>. The goal of the resulting ontology is to enable effective <a href="https://ontopop.com/ontologies/ddat" target="_blank">visualisation</a> of the framework.
+The DDaT ontology modeller application is a Python application that automatically parses, and performs ontological and machine learning-powered semantic similarity modelling of, the <a href="https://ddat-capability-framework.service.gov.uk/" target="_blank">Digital, Data and Technology (DDaT) profession capability framework</a>. The goal of the resulting ontology is to enable effective <a href="https://ontopop.com/ontologies/ddat" target="_blank">visualisation</a> of the framework, and the goal of the machine-learning powered semantic similarity modelling is to identify potentially duplicate classes such as skills.
 
 <p align="right"><a href="#readme-top">Back to Top &#9650;</a></p>
 
