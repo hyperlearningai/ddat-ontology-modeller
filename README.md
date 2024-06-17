@@ -2,12 +2,12 @@
 <div align="center">
 <h1>DDaT Ontology Modeller</h1>
 <p>Automated parsing, and ontological & machine learning-powered semantic similarity modelling, of the Digital, Data and Technology (DDaT) profession capability framework website.</p>
-<p><a href="https://ddat-capability-framework.service.gov.uk/" target="_blank">DDaT Capability Framework</a> · <a href="https://ontopop.com/ontologies/ddat" target="_blank">DDaT Ontology Visualisation</a></p>
+<p><a href="https://ddat-capability-framework.service.gov.uk/" target="_blank">DDaT Capability Framework</a> · <a href="https://app.ontospark.com/?ontologyid=ddat" target="_blank">DDaT Ontology Visualisation</a></p>
 </div>
 
 |   ![DDaT Ontology](assets/images/ddat-ontology-ontospark-screenshot.png "DDaT Ontology")   |
 |:--------------------------------------:|
-| DDaT ontology visualisation in OntoPop |
+| DDaT ontology visualisation in OntoSpark |
 <br/>
 
 ## Table of Contents  
@@ -26,7 +26,7 @@
 
 ## <a name="introduction"></a>1. Introduction
 
-The DDaT ontology modeller application is a Python application that automatically parses, and performs ontological and machine learning-powered semantic similarity modelling of, the <a href="https://ddat-capability-framework.service.gov.uk/" target="_blank">Digital, Data and Technology (DDaT) profession capability framework</a>. The goal of the resulting ontology is to enable effective <a href="https://ontopop.com/ontologies/ddat" target="_blank">visualisation</a> of the framework, and the goal of the machine-learning powered semantic similarity modelling is to identify potentially duplicate classes such as skills.
+The DDaT ontology modeller application is a Python application that automatically parses, and performs ontological and machine learning-powered semantic similarity modelling of, the <a href="https://ddat-capability-framework.service.gov.uk/" target="_blank">Digital, Data and Technology (DDaT) profession capability framework</a>. The goal of the resulting ontology is to enable effective <a href="https://app.ontospark.com/?ontologyid=ddat" target="_blank">visualisation</a> of the framework, and the goal of the machine-learning powered semantic similarity modelling is to identify potentially duplicate classes such as skills.
 
 <p align="right"><a href="#readme-top">Back to Top &#9650;</a></p>
 
@@ -105,7 +105,7 @@ The DDaT ontology created by the DDaT ontology modeller application contains pub
 ## <a name="useful-links"></a>5. Useful Links
 
 * [DDaT profession capability framework](https://ddat-capability-framework.service.gov.uk/)
-* [DDaT ontology visualisation in OntoPop](https://ontopop.com/ontologies/ddat)
+* [DDaT ontology visualisation in OntoSpark](https://app.ontospark.com/?ontologyid=ddat)
 * [DDaT ontology OWL RDF/XML file](https://github.com/hyperlearningai/ddat-ontology)
 * [DDaT ontology in WebProtégé](https://webprotege.stanford.edu/#projects/a86cf6a3-c6f1-4dc8-a8db-b8be17e39736/edit/Classes)
 
